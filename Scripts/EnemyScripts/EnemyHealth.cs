@@ -5,21 +5,65 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour {
 
 	public float health = 100f;
+	public float dissolveFXTime = 3f;
+	public float deathAnimTime = 4f;
 	public GameObject deadFX;
+	public Dissolve[] dissolveFX;
+	public Animator anim;
+	public bool isDead = false;
+
+	private EnemyAISystem enemyAI;
+
+	private void Awake()
+	{
+		enemyAI = gameObject.GetComponent<EnemyAISystem>();
+	}
 
 	public void TakeDamage(float damageAmount)
 	{
-		health -= damageAmount;
-
-		print("damage received");
-
 		if (health <= 0)
 		{
+			isDead = true;
 			// DESTROY THE ENEMY
-			Instantiate(deadFX, transform.position, Quaternion.identity);
-			Destroy(gameObject);
+			//  State to idle then
+			SetToIdleState();
+			anim.SetBool(EnemyAIState.DeathState.ToString(), true);
+			// make the death anim
+			StartCoroutine(WaitForEndDeathAnimation());
+		}
+		else
+		{
+			SoundManager.instance.RandomizeSfx(enemyAI.SfxAudio, enemyAI.BodyHitSounds);
+			SoundManager.instance.RandomizeSfx(enemyAI.VoiceAudio, enemyAI.HitSounds);
+			health -= damageAmount;
 		}
 	}
 
+	void SetToIdleState()
+	{
+		anim.SetBool(EnemyAIState.Attack1.ToString(), false);
+		anim.SetBool(EnemyAIState.Attack2.ToString(), false);
+		anim.SetBool(EnemyAIState.Run.ToString(), false);
+	}
+
+	IEnumerator WaitForEndDeathAnimation()
+	{
+		SoundManager.instance.RandomizeSfx(enemyAI.VoiceAudio, enemyAI.DeathSounds);
+		yield return new WaitForSeconds(deathAnimTime);
+		//  Enable the dissolve effect
+		StartCoroutine(WaitForEndFX());
+	}
+
+	IEnumerator WaitForEndFX()
+	{
+		foreach(Dissolve dissolve in dissolveFX)
+		{
+			dissolve.enabled = true;
+		}
+		
+		yield return new WaitForSeconds(dissolveFXTime);
+		// Instantiate the loot at this position then destroy the current G.O
+		Destroy(gameObject);
+	}
 
 }// class

@@ -12,6 +12,7 @@ public class CharacterMovement : MonoBehaviour {
 	public float speed_Attack = 1.5f;
 	public float turnSpeed = 10f;
 	public float speed_Jump = 20f;
+	public float animJump = 4f;
 
 	private float speed_Move_Multiplier = 1f;
 
@@ -19,10 +20,33 @@ public class CharacterMovement : MonoBehaviour {
 
 	private Animator anim;
 	private Camera mainCamera;
+	private PlayerHealth playerHealth;
 
-	private string PARAMETER_STATE = "State";
-	private string PARAMETER_ATTACK_TYPE = "AttackType";
-	private string PARAMETER_ATTACK_INDEX = "AttackIndex";
+	[SerializeField]
+	private string attackIdentifier;
+	[SerializeField]
+	private string deathIdentifier;
+	[SerializeField]
+	private string hitIdentifier;
+	[SerializeField]
+	private string slashIdentifier;
+	[SerializeField]
+	private string bodyHitIdentifier;
+
+	[SerializeField]
+	private List<AudioClip> attackSounds = new List<AudioClip>();
+	[SerializeField]
+	private List<AudioClip> deathSounds = new List<AudioClip>();
+	[SerializeField]
+	private List<AudioClip> hitSounds = new List<AudioClip>();
+	[SerializeField]
+	private List<AudioClip> slashSounds = new List<AudioClip>();
+	[SerializeField]
+	private List<AudioClip> bodyHitSounds = new List<AudioClip>();
+
+	private static string PARAMETER_STATE = "State";
+	private static string PARAMETER_ATTACK_TYPE = "AttackType";
+	private static string PARAMETER_ATTACK_INDEX = "AttackIndex";
 
 	public AttackAnimation[] attack_Animations;
 	public string[] combo_AttackList;
@@ -34,8 +58,14 @@ public class CharacterMovement : MonoBehaviour {
 	private float attack_Stack_TimeTemp;
 
 	private bool isAttacking;
+	private bool isJumping = false;
+	private bool stopMotor = false;
 
 	private GameObject atkPoint;
+	[SerializeField]
+	private AudioSource voiceAudio;
+	[SerializeField]
+	private AudioSource sfxAudio;
 
 	public GameObject fireTornado;
 
@@ -43,6 +73,19 @@ public class CharacterMovement : MonoBehaviour {
 	{
 		motor = GetComponent<MovementMotor>();
 		anim = GetComponent<Animator>();
+		playerHealth = GetComponent<PlayerHealth>();
+	}
+
+	void OnEnable()
+	{
+		PlayerAttack.damageDealtToEnemy += DamageDealtToEnemy;
+		PlayerHealth.deathEvent += StopMotoring;
+	}
+
+	void OnDisable()
+	{
+		PlayerAttack.damageDealtToEnemy -= DamageDealtToEnemy;
+		PlayerHealth.deathEvent -= StopMotoring;
 	}
 
 	void Start () {
@@ -52,28 +95,32 @@ public class CharacterMovement : MonoBehaviour {
 
 		atkPoint = GameObject.Find("Player Attack Point");
 		atkPoint.SetActive(false);
+		SetupAudioLists();
 	}
-	
+
 	// Update is called once per frame
-	void Update () {
-		HandleAttackAnimations();
-
-		if (MouseLock.MouseLocked)
+	void Update()
+	{
+		if(!stopMotor)
 		{
-			if (Input.GetButtonDown("Fire1"))
+			HandleAttackAnimations();
+
+			if(MouseLock.MouseLocked)
 			{
-				Attack();
+				if(Input.GetButtonDown("Fire1"))
+				{
+					Attack();
+				}
+
+				if(Input.GetButtonDown("Fire2"))
+				{
+					Attack();
+					StartCoroutine(SpecialAttack());
+				}
 			}
 
-			if (Input.GetButtonDown("Fire2"))
-			{
-				Attack();
-
-				StartCoroutine(SpecialAttack());
-			}
+			MovementAndJumping();
 		}
-
-		MovementAndJumping();	
 	}
 
 	private Vector3 MoveDirection
@@ -96,12 +143,173 @@ public class CharacterMovement : MonoBehaviour {
 		}
 	}
 
+	public Animator Anim
+	{
+		get
+		{
+			return anim;
+		}
+
+		set
+		{
+			anim = value;
+		}
+	}
+
+	public MovementMotor Motor
+	{
+		get
+		{
+			return motor;
+		}
+
+		set
+		{
+			motor = value;
+		}
+	}
+
+	public static string PARAMETER_STATE1
+	{
+		get
+		{
+			return PARAMETER_STATE;
+		}
+
+		set
+		{
+			PARAMETER_STATE = value;
+		}
+	}
+
+	public static string PARAMETER_ATTACK_TYPE1
+	{
+		get
+		{
+			return PARAMETER_ATTACK_TYPE;
+		}
+
+		set
+		{
+			PARAMETER_ATTACK_TYPE = value;
+		}
+	}
+
+	public static string PARAMETER_ATTACK_INDEX1
+	{
+		get
+		{
+			return PARAMETER_ATTACK_INDEX;
+		}
+
+		set
+		{
+			PARAMETER_ATTACK_INDEX = value;
+		}
+	}
+
+	public List<AudioClip> AttackSounds
+	{
+		get
+		{
+			return attackSounds;
+		}
+
+		set
+		{
+			attackSounds = value;
+		}
+	}
+
+	public List<AudioClip> DeathSounds
+	{
+		get
+		{
+			return deathSounds;
+		}
+
+		set
+		{
+			deathSounds = value;
+		}
+	}
+
+	public List<AudioClip> HitSounds
+	{
+		get
+		{
+			return hitSounds;
+		}
+
+		set
+		{
+			hitSounds = value;
+		}
+	}
+
+	public AudioSource VoiceAudio
+	{
+		get
+		{
+			return voiceAudio;
+		}
+
+		set
+		{
+			voiceAudio = value;
+		}
+	}
+
+	public AudioSource SfxAudio
+	{
+		get
+		{
+			return sfxAudio;
+		}
+
+		set
+		{
+			sfxAudio = value;
+		}
+	}
+
+	public List<AudioClip> SlashSounds
+	{
+		get
+		{
+			return slashSounds;
+		}
+
+		set
+		{
+			slashSounds = value;
+		}
+	}
+
+	public List<AudioClip> BodyHitSounds
+	{
+		get
+		{
+			return bodyHitSounds;
+		}
+
+		set
+		{
+			bodyHitSounds = value;
+		}
+	}
+
 	void Moving(Vector3 dir, float mult)
 	{
-		if (isAttacking)
+		if(isAttacking)
 		{
 			speed_Move_Multiplier = speed_Move_WhileAttack * mult;
-		} else
+		}
+		else if(isJumping)
+		{
+			speed_Move_Multiplier = speed_Move_WhileAttack * mult;
+		}
+		else
 		{
 			speed_Move_Multiplier = 1 * mult;
 		}
@@ -110,7 +318,7 @@ public class CharacterMovement : MonoBehaviour {
 
 	void Jump()
 	{
-		motor.Jump(speed_Jump);
+		StartCoroutine(Jumping());
 	}
 
 	void AnimationMove(float magnitude)
@@ -120,12 +328,12 @@ public class CharacterMovement : MonoBehaviour {
 		{
 			float speed_Animation = magnitude * 2f;
 
-			if (speed_Animation < 1f)
+			if(speed_Animation < 1f)
 			{
 				speed_Animation = 1f;
 			}
 			// set the movement anim
-			if (anim.GetInteger(PARAMETER_STATE) != 2)
+			if(anim.GetInteger(PARAMETER_STATE) != 2)
 			{
 				anim.SetInteger(PARAMETER_STATE, 1);
 				anim.speed = speed_Animation;
@@ -133,7 +341,7 @@ public class CharacterMovement : MonoBehaviour {
 		} else
 		{
 			// set the idle anim
-			if (anim.GetInteger(PARAMETER_STATE) != 2)
+			if(anim.GetInteger(PARAMETER_STATE) != 2 && anim.GetInteger(PARAMETER_STATE) != 4)
 			{
 				anim.SetInteger(PARAMETER_STATE, 0);
 			}
@@ -151,12 +359,23 @@ public class CharacterMovement : MonoBehaviour {
 		moveInput += mainCamera.transform.right * Input.GetAxis("Horizontal");
 
 		moveInput.Normalize();
-		Moving(moveInput.normalized, 1f);
-
-		if (Input.GetKey(KeyCode.Space))
+		if(!isJumping)
 		{
-			Jump();
+			Moving(moveInput.normalized, 1f);
 		}
+
+		if(!isJumping)
+		{
+			if(Input.GetKey(KeyCode.Space))
+			{
+				Jump();
+			}
+		}
+	}
+
+	void StopMotoring()
+	{
+		stopMotor = true;
 	}
 
 	void FightAnimation()
@@ -214,6 +433,7 @@ public class CharacterMovement : MonoBehaviour {
 					anim.SetInteger(PARAMETER_STATE, 0);
 
 					isAttacking = false;
+					isJumping = false;
 					attack_Index++;
 
 					if (attack_Stack > 1)
@@ -233,6 +453,7 @@ public class CharacterMovement : MonoBehaviour {
 
 	void Attack()
 	{
+		SoundManager.instance.RandomizeSfx(VoiceAudio, attackSounds);
 		if (attack_Stack < 1 ||
 			(Time.time > attack_Stack_TimeTemp + 0.2f && Time.time < attack_Stack_TimeTemp + 1f))
 		{
@@ -257,6 +478,72 @@ public class CharacterMovement : MonoBehaviour {
 		yield return new WaitForSeconds(0.4f);
 
 		Instantiate(fireTornado, transform.position + transform.forward * 2.5f, Quaternion.identity);
+	}
+
+
+	private IEnumerator Jumping()
+	{
+		motor.Stop();
+		anim.SetInteger(PARAMETER_STATE, 4);
+		isJumping = true;
+		anim.SetBool("isJumping", isJumping);
+		motor.Jump(speed_Jump);
+		yield return new WaitForSeconds(animJump);
+		isJumping = false;
+		anim.SetBool("isJumping", isJumping);
+		motor.Stop();
+	}
+
+	void SetupAudioLists()
+	{
+		List<Sounds> soundsList = new List<Sounds>();
+
+		SceneName nameScene = SceneName.Common;
+		int nbSoundsPlaylist = SoundManager.instance.soundObject.sounds.Length;
+
+		for(int i = 0; i < nbSoundsPlaylist; ++i)
+		{
+			if(SoundManager.instance.soundObject.sounds[i].scene == nameScene)
+			{
+				int nbSoundsList = SoundManager.instance.soundObject.sounds[i].sounds.Length;
+				for(int j = 0; j < nbSoundsList; ++j)
+				{
+					if(SoundManager.instance.soundObject.sounds[i].sounds[j].name.Contains(attackIdentifier))
+					{
+						AttackSounds.Add(SoundManager.instance.soundObject.sounds[i].sounds[j].trackFile);
+					}
+					else if(SoundManager.instance.soundObject.sounds[i].sounds[j].name.Contains(deathIdentifier))
+					{
+						DeathSounds.Add(SoundManager.instance.soundObject.sounds[i].sounds[j].trackFile);
+					}
+					else if(SoundManager.instance.soundObject.sounds[i].sounds[j].name.Contains(hitIdentifier))
+					{
+						HitSounds.Add(SoundManager.instance.soundObject.sounds[i].sounds[j].trackFile);
+					}
+				}
+			}
+			else if(SoundManager.instance.soundObject.sounds[i].scene == SceneName.SFX)
+			{
+				int nbSoundsList = SoundManager.instance.soundObject.sounds[i].sounds.Length;
+				for(int j = 0; j < nbSoundsList; ++j)
+				{
+					if(SoundManager.instance.soundObject.sounds[i].sounds[j].name.Contains(slashIdentifier))
+					{
+						SlashSounds.Add(SoundManager.instance.soundObject.sounds[i].sounds[j].trackFile);
+					}
+					else if(SoundManager.instance.soundObject.sounds[i].sounds[j].name.Contains(bodyHitIdentifier))
+					{
+						BodyHitSounds.Add(SoundManager.instance.soundObject.sounds[i].sounds[j].trackFile);
+					}
+				}
+			}
+		}
+	}
+
+	public void DamageDealtToEnemy()
+	{
+		Debug.Log("damage dealth");
+		SoundManager.instance.RandomizeSfx(sfxAudio, slashSounds);
 	}
 
 } // class

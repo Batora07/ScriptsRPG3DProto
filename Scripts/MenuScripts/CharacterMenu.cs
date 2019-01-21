@@ -24,7 +24,7 @@ public class CharacterMenu : MonoBehaviour {
 		characters[index].SetActive(true);
 		characters[index].transform.position = characterPosition.transform.position;
 		// we validate the selection with the game manager
-		GameManager.instance.selectedCharacterIndex = index;
+		GameManager.instance.SelectedCharacterIndex = index;
 	}
 
 	void TurnOffCharacters()

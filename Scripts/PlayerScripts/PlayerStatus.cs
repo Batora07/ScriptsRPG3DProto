@@ -3,13 +3,84 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[System.Serializable]
+public struct PlayerInfos
+{
+	public string characterName;
+	public float level;
+	public PlayableCharacter characterType;
+
+	public float health;
+	public float maxHealth;
+	public float mana;
+	public float maxMana;
+
+	public SaveTransform playerPos;
+	public SaveTransform cameraPos;
+	public float cameraFoV;
+}
+
 public class PlayerStatus : MonoBehaviour {
 
+	public static PlayerStatus instance;
+
+	public string characterName;
+	public int level;
+	public PlayableCharacter characterType;
+
+	private PlayerHealth playerHealth;
+	private PlayerMana playerMana;
 	public GameObject[] playerSwords;
 
 	private GameObject itemsPanel;
 
-	void Start () {
+	public PlayerHealth PlayerHealth
+	{
+		get
+		{
+			return playerHealth;
+		}
+
+		set
+		{
+			playerHealth = value;
+		}
+	}
+
+	public PlayerMana PlayerMana
+	{
+		get
+		{
+			return playerMana;
+		}
+
+		set
+		{
+			playerMana = value;
+		}
+	}
+
+	public void Awake()
+	{
+		if(instance == null)
+		{
+			instance = this;
+			SetupPlayerStatus();
+		}
+	}
+
+	public void SetupPlayerStatus () {
+		PlayerHealth = gameObject.GetComponent<PlayerHealth>();
+//		Debug.Log("max health ? = "+PlayerHealth.maxHealth);
+		PlayerMana = gameObject.GetComponent<PlayerMana>();
+		if(GameManager.instance != null)
+		{
+	//		Debug.Log("yeah duh");
+			GameManager.instance.PlayerStatus = this;
+			characterName = GameManager.instance.CharacterName;
+			characterType = (PlayableCharacter)GameManager.instance.SelectedCharacterIndex;
+			level = GameManager.instance.LevelCharacter;
+		}
 		GameObject[] btns = GameObject.FindGameObjectsWithTag("SwordBtn");
 		foreach(GameObject btn in btns)
 		{
@@ -17,9 +88,12 @@ public class PlayerStatus : MonoBehaviour {
 		}
 
 		itemsPanel = GameObject.Find("Items Panel");
-		itemsPanel.SetActive(false);
-
-		GameObject.Find("Item").GetComponent<Button>().onClick.AddListener(ActivateItemsPanel);
+		if(itemsPanel != null)
+		{
+			itemsPanel.SetActive(false);
+		}
+		
+		//GameObject.Find("Item").GetComponent<Button>().onClick.AddListener(ActivateItemsPanel);
 	}
 	
 	public void ActivateItemsPanel()
@@ -46,5 +120,32 @@ public class PlayerStatus : MonoBehaviour {
 		// of the item we need with aa game controller e.G, so that
 		// we don't have to get this for loop 
 		playerSwords[swordIndex].SetActive(true);
+	}
+
+	public void SetPlayerStatus(PlayerInfos infosPlayer)
+	{
+		characterName = infosPlayer.characterName;
+		level = (int)infosPlayer.level;
+		characterType = infosPlayer.characterType;
+
+		playerHealth.maxHealth = infosPlayer.maxHealth;
+		playerHealth.health = infosPlayer.health;
+		playerMana.maxMana = infosPlayer.maxMana;
+		playerMana.mana = infosPlayer.mana; 
+	}
+
+	public PlayerInfos SetPlayerInfos()
+	{
+		PlayerInfos newPlayerInfos = new PlayerInfos();
+		newPlayerInfos.characterName = characterName;
+		newPlayerInfos.level = level;
+		newPlayerInfos.characterType = characterType;
+
+		newPlayerInfos.health = playerHealth.health;
+		newPlayerInfos.maxHealth = playerHealth.maxHealth;
+		newPlayerInfos.mana = playerMana.mana;
+		newPlayerInfos.maxMana = playerMana.maxMana;
+
+		return newPlayerInfos;
 	}
 }

@@ -8,7 +8,9 @@ public class BackToVillage : MonoBehaviour {
 	{
 		if(target.tag == "Player")
 		{
-			SceneLoader.instance.LoadLevel("Village");
+			GameManager.instance.PlayerInfos = PlayerStatus.instance.SetPlayerInfos();
+			SavingData.instance.GenerateAutoSave.UpdateAutoSave();
+			SceneLoader.instance.LoadLevelAsync("Village");
 		}
 	}
 }
