@@ -31,7 +31,6 @@ public class GameplayController : MonoBehaviour {
 				scene = "SkyWorld";
 				break;
 		}
-
 		SceneLoader.instance.SetLoadingSprite(scene);
 
 		SceneLoader.instance.LoadLevelAsync(scene);

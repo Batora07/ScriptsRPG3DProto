@@ -8,40 +8,61 @@ public class Dissolve : MonoBehaviour {
     public bool resetDissolve = false;
     public float speedDissolve = 0.1f;
     public Material mat;
+	public Material outlineMat;
 
-    public void Start()
+
+    public void OnEnable()
     {
-		// try get mesh renderer
+		// try get mesh renderer, then change the outline shader effect by the dissolve shader effect
 		if(GetComponent<SkinnedMeshRenderer>() != null)
 		{
-			mat = GetComponent<SkinnedMeshRenderer>().material;
+			GetComponent<SkinnedMeshRenderer>().material = mat;
 		}
 		else if(GetComponent<MeshRenderer>() != null)
 		{
-			mat = GetComponent<MeshRenderer>().material;
+			GetComponent<MeshRenderer>().material = mat;
 		}
 		else
 		{
 			mat = null;
 		}
-        
-    }
 
-    public void Update()
-    {
-        if(mat != null && !finished)
-        {
-            SetDissolve();
-        }
-        else if(finished && resetDissolve)
-        {
-            ResetDissolve();
-        }
-    }
+		resetDissolve = true;
+	}
+
+	private void OnDisable()
+	{
+		// reset the outline shader 
+		if(GetComponent<SkinnedMeshRenderer>() != null)
+		{
+			GetComponent<SkinnedMeshRenderer>().material = outlineMat;
+		}
+		else if(GetComponent<MeshRenderer>() != null)
+		{
+			GetComponent<MeshRenderer>().material = outlineMat;
+		}
+		else
+		{
+			mat = null;
+		}
+	}
+
+	private void Update()
+	{
+		if(mat != null && !finished)
+		{
+			SetDissolve();
+		}
+		else if(finished && resetDissolve)
+		{
+			ResetDissolve();
+		}
+	}
 
     private void SetDissolve()
     {
-        float sliceAmount = mat.GetFloat("_SliceAmount");
+		finished = false;
+		float sliceAmount = mat.GetFloat("_SliceAmount");
         if (sliceAmount >= 1)
         {
             finished = true;

@@ -105,19 +105,16 @@ public class CharacterMovement : MonoBehaviour {
 		{
 			HandleAttackAnimations();
 
-			if(MouseLock.MouseLocked)
+			if(Input.GetKeyDown(KeyCode.Alpha1))
 			{
-				if(Input.GetButtonDown("Fire1"))
-				{
-					Attack();
-				}
+				Skill_1();
+			}
 
-				if(Input.GetButtonDown("Fire2"))
+				/*if(Input.GetButtonDown("Fire2"))
 				{
 					Attack();
 					StartCoroutine(SpecialAttack());
-				}
-			}
+				}*/
 
 			MovementAndJumping();
 		}
@@ -451,10 +448,20 @@ public class CharacterMovement : MonoBehaviour {
 		}
 	}
 
-	void Attack()
+	public void Skill_1()
 	{
+		// set the current skill as this one
+		float cooldownSkill = GetComponent<PlayerStatus>().skills.skillsList[0].cooldown;
+		SkillUIManager.instance.skillsUI[0].DisplayCooldownSkill(cooldownSkill);
+
+		// semaphore to prevent attacking two times in a row
+		if(isAttacking)
+			return;
+
+		StartCoroutine(WaitForEndAttack(cooldownSkill));
+
 		SoundManager.instance.RandomizeSfx(VoiceAudio, attackSounds);
-		if (attack_Stack < 1 ||
+		if(attack_Stack < 1 ||
 			(Time.time > attack_Stack_TimeTemp + 0.2f && Time.time < attack_Stack_TimeTemp + 1f))
 		{
 			attack_Stack++;
@@ -544,6 +551,13 @@ public class CharacterMovement : MonoBehaviour {
 	{
 		Debug.Log("damage dealth");
 		SoundManager.instance.RandomizeSfx(sfxAudio, slashSounds);
+	}
+
+	public IEnumerator WaitForEndAttack(float cooldown)
+	{
+		isAttacking = true;
+		yield return new WaitForSeconds(cooldown);
+		isAttacking = false;
 	}
 
 } // class

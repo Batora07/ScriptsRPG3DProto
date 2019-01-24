@@ -3,23 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UnitFrameManager : MonoBehaviour
+public class UnitFrameManager : LivingEntityInfos
 {
 	public static UnitFrameManager instance;
 
-	public Text userName;
-	public Text characterType;
+	public Text userNameText;
+	public Text characterTypeText;
 	public Text lvlText;
 	public Text healthText;
 	public Text manaText;
 	public Transform healthGauge;
 	public Transform manaGauge;
-
-	private float currentHealth;
-	private float currentMana;
-	private float maxHealth;
-	private float maxMana;
-	private string lvl;
 
 	private PlayerStatus playerStatus;
 
@@ -61,7 +55,7 @@ public class UnitFrameManager : MonoBehaviour
 		if(string.IsNullOrEmpty(playerStatus.characterName))
 			return;
 
-		userName.text = playerStatus.characterName;
+		userNameText.text = playerStatus.characterName;
 	}
 
 	public void SetLvl()
@@ -81,13 +75,13 @@ public class UnitFrameManager : MonoBehaviour
 		switch(currentCharSelected)
 		{
 			case PlayableCharacter.Dryad:
-				characterType.text = "Dryad Sorceress";
+				characterTypeText.text = "Dryad Sorceress";
 				break;
 			case PlayableCharacter.Knight:
-				characterType.text = "Paladin Knight";
+				characterTypeText.text = "Paladin Knight";
 				break;
 			case PlayableCharacter.VampireKing:
-				characterType.text = "Fallen King";
+				characterTypeText.text = "Fallen King";
 				break;
 		}
 	}

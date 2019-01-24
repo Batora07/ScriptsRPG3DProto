@@ -38,7 +38,7 @@ public class CameraOrbit : Orbit {
 		currentAxisXValue = angle_Offset.y;
 		camera_Position = camera_Position_Temp;
 
-		MouseLock.MouseLocked = true;
+		MouseLock.MouseLocked = false;
 	}
 	
 	// Update is called once per frame
@@ -92,7 +92,7 @@ public class CameraOrbit : Orbit {
 
 	void HandleMouseLocking()
 	{
-		if (Input.GetKeyDown(KeyCode.Tab))
+		if (Input.GetKeyDown(KeyCode.Mouse1))
 		{
 			if (MouseLock.MouseLocked)
 			{
@@ -101,6 +101,11 @@ public class CameraOrbit : Orbit {
 			{
 				MouseLock.MouseLocked = true;
 			}
+		}
+
+		if(Input.GetKeyUp(KeyCode.Mouse1))
+		{
+			MouseLock.MouseLocked = false;
 		}
 	}
 

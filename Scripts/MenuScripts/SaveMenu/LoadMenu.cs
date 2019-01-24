@@ -26,13 +26,10 @@ public class LoadMenu : MonoBehaviour
 	[SerializeField]
 	private Text buttonConfirm;
 
-	private bool isAutoSaveAlreadyDisplayed = false;
-
 	private List<LoadButton> listLoadButtons = new List<LoadButton>();
 
 	private void OnEnable()
 	{
-		isAutoSaveAlreadyDisplayed = false;
 		LoadFileListing.updatedSaveList += UpdatedSaveList;
 		if(_isLoadMenu)
 		{
@@ -65,7 +62,6 @@ public class LoadMenu : MonoBehaviour
 
 	public void ClearListsButtons()
 	{
-		isAutoSaveAlreadyDisplayed = false;
 		int nbButtons = listLoadButtons.Count;
 		listLoadButtons.Clear();
 		SavingData.instance.LoadFilesListing.listPlayerData.Clear();
@@ -86,30 +82,27 @@ public class LoadMenu : MonoBehaviour
 		SavingData.instance.LoadFilesListing.GetSaveFiles();
 		List<PlayerData> playerDatas = SavingData.instance.LoadFilesListing.listPlayerData;
 		int nbLoadButtons = playerDatas.Count;
+		bool foundAutoSave = false;
 
 		for(int i = 0; i < nbLoadButtons; ++i)
 		{
-			if(playerDatas[i].SavePlayerInfos.level == 0)
-				return;
+			if(playerDatas[i].IsAutoSave && playerDatas[i].SavePlayerInfos.level == 0)
+				continue;
 
-			// this prevent to display the AUTO_SAVE twice
-			if(playerDatas[i].IsAutoSave && !isAutoSaveAlreadyDisplayed)
-			{
-				isAutoSaveAlreadyDisplayed = true;
-				LoadButton newButton = Instantiate(btnPrefab, listLoadButtonsPanel);
-				newButton.PlayerDataSaveState = playerDatas[i];
-				newButton.SetInfosButton();
-				newButton.saveNumber.text = playerDatas[i].IsAutoSave ? newButton.saveNumber.text : i.ToString();
-				listLoadButtons.Add(newButton);
-			}
-			else if(!playerDatas[i].IsAutoSave)
-			{
-				LoadButton newButton = Instantiate(btnPrefab, listLoadButtonsPanel);
-				newButton.PlayerDataSaveState = playerDatas[i];
-				newButton.SetInfosButton();
-				newButton.saveNumber.text = playerDatas[i].IsAutoSave ? newButton.saveNumber.text : i.ToString();
-				listLoadButtons.Add(newButton);
-			}
+			if(foundAutoSave && playerDatas[i].IsAutoSave && playerDatas[i].SavePlayerInfos.level > 0)
+				continue;
+
+			if(playerDatas[i].SavePlayerInfos.level < 0)
+				continue;
+
+			LoadButton newButton = Instantiate(btnPrefab, listLoadButtonsPanel);
+			newButton.PlayerDataSaveState = playerDatas[i];
+			newButton.SetInfosButton();
+			newButton.saveNumber.text = playerDatas[i].IsAutoSave ? newButton.saveNumber.text : i.ToString();
+			listLoadButtons.Add(newButton);
+
+			if(playerDatas[i].IsAutoSave && playerDatas[i].SavePlayerInfos.level > 0)
+				foundAutoSave = true;	
 		}
 	}
 

@@ -14,16 +14,21 @@ public class EnemyHealth : MonoBehaviour {
 
 	private EnemyAISystem enemyAI;
 
+	public EntityStatus entityStatus;
+
 	private void Awake()
 	{
+		entityStatus = gameObject.GetComponent<EntityStatus>();
 		enemyAI = gameObject.GetComponent<EnemyAISystem>();
+		entityStatus.SetupEntityHealth(health);
 	}
 
 	public void TakeDamage(float damageAmount)
 	{
-		if (health <= 0)
+		if (health - damageAmount < 1)
 		{
 			isDead = true;
+			UpdateHealtEntityStatus(0);
 			// DESTROY THE ENEMY
 			//  State to idle then
 			SetToIdleState();
@@ -36,6 +41,7 @@ public class EnemyHealth : MonoBehaviour {
 			SoundManager.instance.RandomizeSfx(enemyAI.SfxAudio, enemyAI.BodyHitSounds);
 			SoundManager.instance.RandomizeSfx(enemyAI.VoiceAudio, enemyAI.HitSounds);
 			health -= damageAmount;
+			UpdateHealtEntityStatus(health);
 		}
 	}
 
@@ -64,6 +70,12 @@ public class EnemyHealth : MonoBehaviour {
 		yield return new WaitForSeconds(dissolveFXTime);
 		// Instantiate the loot at this position then destroy the current G.O
 		Destroy(gameObject);
+	}
+
+	public void UpdateHealtEntityStatus(float health)
+	{
+		entityStatus.entityInfos.health = health;
+		entityStatus.NotifyUI();
 	}
 
 }// class

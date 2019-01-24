@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour {
 
 	public GameObject playerInventory;
 
+	public CameraHandler camHandler;
+
 	private UIPlayer uiPlayer;
 
 
@@ -80,8 +82,11 @@ public class GameManager : MonoBehaviour {
 			// ONCE THE SCENE IS LOADED, FIRST THING TO CHANGE IS THE SOUND
 			SoundManager.instance.LoadAudioPrefs(SavingData.instance.CurrentSavedState);
 
-			// THEN WE INSTANTIATE THE PLAYER CHARACTER
+			// INSTANTIATE THE UI CAMERA
 			Instantiate(playerInventory, Vector3.zero, Quaternion.identity);
+
+			// THEN WE INSTANTIATE THE PLAYER CHARACTER
+
 			// Reset player infos to UI
 			Vector3 pos = GameObject.FindGameObjectWithTag("SpawnPosition").transform.position;
 			GameObject charInstantiated = Instantiate(characters[SelectedCharacterIndex], pos, Quaternion.identity);
@@ -155,6 +160,12 @@ public class GameManager : MonoBehaviour {
 				Camera.main.transform.localScale = newCamScale;
 			}
 
+			// Set the entityInfos
+			if(playerInfos.level > 0)
+			{
+				_playerStatus.GetComponent<EntityStatus>().SetupEntityInfosByPlayerInfos(playerInfos);
+			}
+
 			// finally we set the camera -> Field Of View
 			if(Camera.main.fieldOfView != playerInfos.cameraFoV &&
 				playerInfos.cameraFoV > 0)
@@ -166,6 +177,10 @@ public class GameManager : MonoBehaviour {
 
 			// then setup the sounds
 			SoundManager.instance.ChangeSoundLibs();
+
+			// disable the enemy frame panelUI at start of the scene
+			PlayerStatus.instance.selectCharacter.UnselectEntity();
+			EnemyUnitFrameManager.instance.panelUI.gameObject.SetActive(false);
 
 			// once all of this is done then disable the loading screen
 			SceneLoader.instance.DisableLoadingScreen();

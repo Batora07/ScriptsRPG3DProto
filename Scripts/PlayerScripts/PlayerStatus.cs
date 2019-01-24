@@ -31,6 +31,10 @@ public class PlayerStatus : MonoBehaviour {
 	private PlayerHealth playerHealth;
 	private PlayerMana playerMana;
 	public GameObject[] playerSwords;
+	public EntityStatus entityStatus;
+
+	public SkillsListing skills;
+	public SelectCharacter selectCharacter;
 
 	private GameObject itemsPanel;
 
@@ -81,18 +85,21 @@ public class PlayerStatus : MonoBehaviour {
 			characterType = (PlayableCharacter)GameManager.instance.SelectedCharacterIndex;
 			level = GameManager.instance.LevelCharacter;
 		}
-		GameObject[] btns = GameObject.FindGameObjectsWithTag("SwordBtn");
+		/*GameObject[] btns = GameObject.FindGameObjectsWithTag("SwordBtn");
 		foreach(GameObject btn in btns)
 		{
 			btn.GetComponent<Button>().onClick.AddListener(ChangeSword);
-		}
+		}*/
 
 		itemsPanel = GameObject.Find("Items Panel");
 		if(itemsPanel != null)
 		{
 			itemsPanel.SetActive(false);
 		}
-		
+
+		PlayerInfos playerInfos = SetPlayerInfos();
+		entityStatus = GetComponent<EntityStatus>();
+		entityStatus.SetupEntityInfosByPlayerInfos(playerInfos);
 		//GameObject.Find("Item").GetComponent<Button>().onClick.AddListener(ActivateItemsPanel);
 	}
 	
@@ -107,11 +114,8 @@ public class PlayerStatus : MonoBehaviour {
 		}
 	}
 
-	public void ChangeSword()
+	public void ChangeSword(int newSwordIndex)
 	{
-		int swordIndex = int.Parse(
-			UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name);
-
 		for (int i = 0; i < playerSwords.Length; i++)
 		{
 			playerSwords[i].SetActive(false);
@@ -119,7 +123,7 @@ public class PlayerStatus : MonoBehaviour {
 		// for a game with multiple items, we need to save the index in the array
 		// of the item we need with aa game controller e.G, so that
 		// we don't have to get this for loop 
-		playerSwords[swordIndex].SetActive(true);
+		playerSwords[newSwordIndex].SetActive(true);
 	}
 
 	public void SetPlayerStatus(PlayerInfos infosPlayer)

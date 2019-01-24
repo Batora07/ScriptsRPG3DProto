@@ -53,8 +53,8 @@ public class LoadFileListing : MonoBehaviour
 				Debug.Log(newSaveFile.NameSave);
 			}
 			// skip this part of the loop if the save is an autosave
-			if(newSaveFile.IsAutoSave)
-				continue;
+		/*	if(newSaveFile.IsAutoSave)
+				continue;*/
 
 			listPlayerData.Add(newSaveFile);
 		}

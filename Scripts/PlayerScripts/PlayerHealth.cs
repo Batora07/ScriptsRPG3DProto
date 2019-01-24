@@ -89,6 +89,10 @@ public class PlayerHealth : MonoBehaviour {
 		// notify UI
 		UnitFrameManager.instance.SetHealthText();
 		UnitFrameManager.instance.FillHealthGauge();
+
+		EntityStatus entityStatus = GetComponent<EntityStatus>();
+		entityStatus.entityInfos.health = health;
+		entityStatus.NotifyUI();
 	}
 
 	public void SendDeath()
