@@ -15,13 +15,37 @@ public class PlayerHealth : MonoBehaviour {
 	public delegate void SendDeathEvent();
 	public static event SendDeathEvent deathEvent;
 
+	private bool isInHealAOE = false;
 	private CharacterMovement playerMovement;
 	private AudioClip deathSound;
 	private string deathMusic = "DeathMusic";
 
+	public bool IsInHealAOE
+	{
+		get
+		{
+			return isInHealAOE;
+		}
+
+		set
+		{
+			isInHealAOE = value;
+		}
+	}
+
 	private void Awake()
 	{
 		playerMovement = GetComponent<CharacterMovement>();
+	}
+
+	public void OnEnable()
+	{
+		TriggerHealing.triggerHealing += IsInHealingZone;
+	}
+
+	public void OnDisable()
+	{
+		TriggerHealing.triggerHealing -= IsInHealingZone;
 	}
 
 	public void Start()
@@ -55,11 +79,18 @@ public class PlayerHealth : MonoBehaviour {
 		if(health + healAmount > maxHealth)
 		{
 			health = maxHealth;
+			NotifyUI();
 		}
 		else
 		{
 			health += healAmount;
+			NotifyUI();
 		}
+	}
+
+	public void HealOnTime(float cooldown, float healAmount, bool isOnAOE = false)
+	{
+		StartCoroutine(HealingTime(cooldown, healAmount, isOnAOE));
 	}
 
 	private void DeathAnim()
@@ -136,6 +167,30 @@ public class PlayerHealth : MonoBehaviour {
 		}
 
 		PauseMenuUI.instance.EnablePauseMenu();
+	}
+
+	public IEnumerator HealingTime(float _cooldown, float _healAmount, bool _isOnAOE){
+
+		float secondsLeft = _cooldown;
+
+		while(secondsLeft > 0.1f)
+		{
+			secondsLeft -= 1;
+			if(GetIsInAOE())
+				HealingHealth(_healAmount);
+
+			yield return new WaitForSeconds(1);
+		}
+	}
+
+	public void IsInHealingZone(bool isInAOE)
+	{
+		IsInHealAOE = isInAOE;
+	}
+
+	public bool GetIsInAOE()
+	{
+		return IsInHealAOE;
 	}
 
 }// class

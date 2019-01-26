@@ -11,4 +11,5 @@ public struct Spell
 	public float damage;
 	public bool isHealing;
 	public bool isManaFiller;
+	public GameObject VFX;
 }

@@ -32,6 +32,9 @@ public class SkillUIManager : MonoBehaviour
 			case 0:
 				PlayerStatus.instance.GetComponent<CharacterMovement>().Skill_1();
 				break;
+			case 1:
+				PlayerStatus.instance.GetComponent<CharacterMovement>().Skill_2();
+				break;
 		}
 	}
 }

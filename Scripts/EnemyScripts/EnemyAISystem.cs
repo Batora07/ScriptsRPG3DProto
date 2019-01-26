@@ -51,7 +51,7 @@ public class EnemyAISystem : MonoBehaviour {
 	private List<AudioClip> bodyHitSounds = new List<AudioClip>();
 
 	[SerializeField]
-	private GameObject rightAttackPoint, leftAttackPoint;
+	public GameObject rightAttackPoint, leftAttackPoint;
 
 	[SerializeField]
 	private AudioSource voiceAudio;
@@ -370,21 +370,37 @@ public class EnemyAISystem : MonoBehaviour {
 
 	void RightAttack_Begin()
 	{
+		if(rightAttackPoint.GetComponent<EnableVFX>() != null)
+		{
+			rightAttackPoint.GetComponent<EnableVFX>().DisplayVFX();
+		}
 		rightAttackPoint.SetActive(true);
 	}
 
 	void RightAttack_End()
 	{
+		if(rightAttackPoint.GetComponent<EnableVFX>() != null)
+		{
+			rightAttackPoint.GetComponent<EnableVFX>().DisableVFX();
+		}
 		rightAttackPoint.SetActive(false);
 	}
 
 	void LeftAttack_Begin()
 	{
+		if(leftAttackPoint.GetComponent<EnableVFX>() != null)
+		{
+			leftAttackPoint.GetComponent<EnableVFX>().DisplayVFX();
+		}
 		leftAttackPoint.SetActive(true);
 	}
 
 	void LeftAttack_End()
 	{
+		if(leftAttackPoint.GetComponent<EnableVFX>() != null)
+		{
+			leftAttackPoint.GetComponent<EnableVFX>().DisableVFX();
+		}
 		leftAttackPoint.SetActive(false);
 	}
 

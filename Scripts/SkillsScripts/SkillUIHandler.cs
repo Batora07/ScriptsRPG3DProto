@@ -55,7 +55,7 @@ public class SkillUIHandler : MonoBehaviour
 		if(isOnCooldown)
 			return;
 
-		UseSkillFromUI(slotNumber);
+		UseSkillFromUI();
 	}
 
 	public void DisplayCooldownSkill(float cd)
@@ -91,11 +91,11 @@ public class SkillUIHandler : MonoBehaviour
 		}
 	}
 
-	public void UseSkillFromUI(int index)
+	public void UseSkillFromUI()
 	{
 		if(useSkillFromUI != null)
 		{
-			useSkillFromUI(index);
+			useSkillFromUI(slotNumber);
 		}
 	}
 }

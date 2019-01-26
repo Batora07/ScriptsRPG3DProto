@@ -32,6 +32,7 @@ public class EnemyHealth : MonoBehaviour {
 			// DESTROY THE ENEMY
 			//  State to idle then
 			SetToIdleState();
+			DisableVFX();
 			anim.SetBool(EnemyAIState.DeathState.ToString(), true);
 			// make the death anim
 			StartCoroutine(WaitForEndDeathAnimation());
@@ -76,6 +77,19 @@ public class EnemyHealth : MonoBehaviour {
 	{
 		entityStatus.entityInfos.health = health;
 		entityStatus.NotifyUI();
+	}
+
+
+	public void DisableVFX()
+	{
+		if(GetComponent<EnemyAISystem>().leftAttackPoint.GetComponent<EnableVFX>() != null)
+		{
+			GetComponent<EnemyAISystem>().leftAttackPoint.GetComponent<EnableVFX>().DisableVFX();
+		}
+		if(GetComponent<EnemyAISystem>().rightAttackPoint.GetComponent<EnableVFX>() != null)
+		{
+			GetComponent<EnemyAISystem>().rightAttackPoint.GetComponent<EnableVFX>().DisableVFX();
+		}
 	}
 
 }// class

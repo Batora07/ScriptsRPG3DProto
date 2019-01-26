@@ -58,6 +58,7 @@ public class CharacterMovement : MonoBehaviour {
 	private float attack_Stack_TimeTemp;
 
 	private bool isAttacking;
+	private bool isHealing;
 	private bool isJumping = false;
 	private bool stopMotor = false;
 
@@ -110,11 +111,16 @@ public class CharacterMovement : MonoBehaviour {
 				Skill_1();
 			}
 
-				/*if(Input.GetButtonDown("Fire2"))
-				{
-					Attack();
-					StartCoroutine(SpecialAttack());
-				}*/
+			if(Input.GetKeyDown(KeyCode.Alpha2))
+			{
+				Skill_2();
+			}
+
+			/*if(Input.GetButtonDown("Fire2"))
+			{
+				Attack();
+				StartCoroutine(SpecialAttack());
+			}*/
 
 			MovementAndJumping();
 		}
@@ -425,8 +431,10 @@ public class CharacterMovement : MonoBehaviour {
 				int motionIndex = int.Parse(combo_List[attack_Index]);
 
 				// if the animation gets to its end
+				GetComponent<PlayerStatus>().playerSwords[0].GetComponent<EnableVFX>().DisplayVFX();
 				if (stateInfo.normalizedTime > 0.9f)
 				{
+					GetComponent<PlayerStatus>().playerSwords[0].GetComponent<EnableVFX>().DisableVFX();
 					anim.SetInteger(PARAMETER_STATE, 0);
 
 					isAttacking = false;
@@ -452,6 +460,7 @@ public class CharacterMovement : MonoBehaviour {
 	{
 		// set the current skill as this one
 		float cooldownSkill = GetComponent<PlayerStatus>().skills.skillsList[0].cooldown;
+		SkillUIManager.instance.skillsUI[0].CooldownSkill = cooldownSkill;
 		SkillUIManager.instance.skillsUI[0].DisplayCooldownSkill(cooldownSkill);
 
 		// semaphore to prevent attacking two times in a row
@@ -468,6 +477,25 @@ public class CharacterMovement : MonoBehaviour {
 			attack_Stack_TimeTemp = Time.time;
 		}
 		FightAnimation();
+	}
+
+	public void Skill_2()
+	{
+		// set the current skill as this one
+		float cooldownSkill = GetComponent<PlayerStatus>().skills.skillsList[1].cooldown;
+		SkillUIManager.instance.skillsUI[1].CooldownSkill = cooldownSkill;
+		SkillUIManager.instance.skillsUI[1].DisplayCooldownSkill(cooldownSkill);
+
+		// semaphore to prevent attacking two times in a row
+		if(isHealing)
+			return;
+
+		Vector3 playerLocation = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
+		Quaternion playerRotation = new Quaternion(gameObject.transform.rotation.x, gameObject.transform.rotation.y, gameObject.transform.rotation.z, gameObject.transform.rotation.w);
+		GameObject VFX = Instantiate(GetComponent<PlayerStatus>().skills.skillsList[1].VFX, playerLocation, playerRotation);
+
+		SoundManager.instance.RandomizeSfx(VoiceAudio, attackSounds);
+		HealingSpell(cooldownSkill, VFX);
 	}
 
 	void Attack_Began()
@@ -490,12 +518,13 @@ public class CharacterMovement : MonoBehaviour {
 
 	private IEnumerator Jumping()
 	{
-		motor.Stop();
+		//motor.Stop();
 		anim.SetInteger(PARAMETER_STATE, 4);
 		isJumping = true;
 		anim.SetBool("isJumping", isJumping);
 		motor.Jump(speed_Jump);
 		yield return new WaitForSeconds(animJump);
+		motor.Stop();
 		isJumping = false;
 		anim.SetBool("isJumping", isJumping);
 		motor.Stop();
@@ -547,6 +576,11 @@ public class CharacterMovement : MonoBehaviour {
 		}
 	}
 
+	public void HealingSpell(float cooldown, GameObject VFXToDestroy = null)
+	{
+		StartCoroutine(GenerateHealing(cooldown, VFXToDestroy));
+	}
+
 	public void DamageDealtToEnemy()
 	{
 		Debug.Log("damage dealth");
@@ -558,6 +592,17 @@ public class CharacterMovement : MonoBehaviour {
 		isAttacking = true;
 		yield return new WaitForSeconds(cooldown);
 		isAttacking = false;
+	}
+
+	public IEnumerator GenerateHealing(float cooldown, GameObject vfxToDestroy = null)
+	{
+		isHealing = true;
+		yield return new WaitForSeconds(cooldown);
+		if(vfxToDestroy != null)
+		{
+			Destroy(vfxToDestroy);
+		}
+		isHealing = false;
 	}
 
 } // class
