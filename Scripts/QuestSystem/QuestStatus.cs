@@ -10,5 +10,6 @@ public enum QuestStatus
 	Failed,
 	Rewarded,
 	Aborted,
-	Unlock
+	Unlock,
+	Current
 }

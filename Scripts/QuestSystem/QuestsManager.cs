@@ -6,11 +6,16 @@ public class QuestsManager : MonoBehaviour
 {
 	public static QuestsManager instance;
 	public Quests questsScriptableObject;
+	public Quest _currentQuest;
+
+	public delegate void UpdateCurrentQuest();
+	public static event UpdateCurrentQuest currentQuestUpdated;	
 
 	void Awake()
 	{
 		MakeSingleton();
 		SubscribeToEvents();
+		CurrentQuestUpdated();
 	}
 
 	void MakeSingleton()
@@ -45,6 +50,7 @@ public class QuestsManager : MonoBehaviour
 				if(qL.questStatus == QuestStatus.InProgress)
 				{
 					qL.InProgressQuest();
+					ChangeCurrentQuest(qL);
 				}
 				else if(qL.questStatus == QuestStatus.Unlock)
 				{
@@ -58,6 +64,16 @@ public class QuestsManager : MonoBehaviour
 				qL.SetRequirements();
 			}
 		}		
+	}
+
+	public void ChangeCurrentQuest(Quest quest)
+	{
+		// <------------- TODO ----------------->
+		/*
+		 * DISPLAY ANIMATION WHEN QUEST IS FINISHED, also change text of the quest to display the end text short description
+		 * */
+		_currentQuest = quest;
+		CurrentQuestUpdated();
 	}
 
 	public void QuestsBindingFromXMLDB(List<Quest> dbQuestsDeserialized)
@@ -82,6 +98,14 @@ public class QuestsManager : MonoBehaviour
 				}
 			}
 			questsScriptableObject.questsLists[i].killQuests = listKillQuest.ToArray();
+		}
+	}
+
+	public void CurrentQuestUpdated()
+	{
+		if(currentQuestUpdated != null)
+		{
+			currentQuestUpdated();
 		}
 	}
 

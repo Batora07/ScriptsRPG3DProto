@@ -51,7 +51,12 @@ public class KillQuest : Quest
 		questStatus = QuestStatus.Completed;
 		EnemyHealth.entityKilled -= IncreaseKillCount;
 		RequirementsToUnlock(UID_Quest);
-		ChangeQuestsListTypeForScriptableObject(QuestStatus.InProgress, questStatus);		
+		ChangeQuestsListTypeForScriptableObject(QuestStatus.InProgress, questStatus);
+		// <------------- TODO ----------------->
+		/*
+		 * DISPLAY ANIMATION WHEN QUEST IS FINISHED, also change text of the quest to display the end text short description
+		 * */
+		QuestsManager.instance.ChangeCurrentQuest(null);
 	}
 
 	public void IncreaseKillCount(EntityType entityKilled)
@@ -79,9 +84,10 @@ public class KillQuest : Quest
 		int nbLists = QuestsManager.instance.questsScriptableObject.questsLists.Length;
 		int nbPreviousListIndex = 0;
 		int nbNextListIndex = 0;
+		
 		List<KillQuest> previousKillQuestList = new List<KillQuest>();
 		List<KillQuest> nextKillQuestList = new List<KillQuest>();
-		
+
 		for(int i = 0; i < nbLists; ++i)
 		{
 			if(currentStatus == QuestsManager.instance.questsScriptableObject.questsLists[i].questStatus)
@@ -102,4 +108,5 @@ public class KillQuest : Quest
 		QuestsManager.instance.questsScriptableObject.questsLists[nbPreviousListIndex].killQuests = previousKillQuestList.ToArray();
 		QuestsManager.instance.questsScriptableObject.questsLists[nbNextListIndex].killQuests = nextKillQuestList.ToArray();
 	}
+
 }

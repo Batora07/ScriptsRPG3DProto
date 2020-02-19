@@ -583,7 +583,7 @@ public class CharacterMovement : MonoBehaviour {
 
 	public void DamageDealtToEnemy()
 	{
-		Debug.Log("damage dealth");
+	//	Debug.Log("damage dealth");
 		SoundManager.instance.RandomizeSfx(sfxAudio, slashSounds);
 	}
 

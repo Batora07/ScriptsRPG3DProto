@@ -77,11 +77,7 @@ public class EnemyUnitFrameManager : MonoBehaviour
 		if(entityInfos.level == 0)
 			return;
 
-<<<<<<< HEAD
 		characterType.text = entityInfos.entityType.ToString();
-=======
-		characterType.text = entityInfos.entityType;
->>>>>>> 29ae8ac92b7742914c4c477d588ef8ce27939288
 	}
 
 	public void FillHealthGauge()
@@ -146,7 +142,6 @@ public class EnemyUnitFrameManager : MonoBehaviour
 	{
 		try
 		{
-<<<<<<< HEAD
 			if(entityInfos.entityType == EntityType.Undefined && entityInfos.entityType != EntityType.Human)
 			{
 				PlayableCharacter typePlayer = (PlayableCharacter)System.Enum.Parse(typeof(PlayableCharacter), PlayerStatus.instance.characterType.ToString());
@@ -170,24 +165,6 @@ public class EnemyUnitFrameManager : MonoBehaviour
 			else
 			{
 				characterType.color = enemyTypeTint;
-=======
-			PlayableCharacter typePlayer = (PlayableCharacter)System.Enum.Parse(typeof(PlayableCharacter), entityInfos.entityType);
-
-			switch(typePlayer)
-			{
-				case PlayableCharacter.Dryad:
-					characterType.text = "Dryad Sorceress";
-					characterType.color = playerTypeTint;
-					break;
-				case PlayableCharacter.Knight:
-					characterType.text = "Paladin Knight";
-					characterType.color = playerTypeTint;
-					break;
-				case PlayableCharacter.VampireKing:
-					characterType.text = "Fallen King";
-					characterType.color = playerTypeTint;
-					break;
->>>>>>> 29ae8ac92b7742914c4c477d588ef8ce27939288
 			}
 		}
 		catch(System.Exception e)

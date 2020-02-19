@@ -8,11 +8,7 @@ public struct EntityInfos
 	public int UID;
 	public string entityName;
 	public float level;
-<<<<<<< HEAD
 	public EntityType entityType;
-=======
-	public string entityType;
->>>>>>> 29ae8ac92b7742914c4c477d588ef8ce27939288
 
 	public float health;
 	public float maxHealth;
@@ -66,22 +62,15 @@ public class EntityStatus : MonoBehaviour
 		entityInfos.health = entityInfos.maxHealth = healthAmount;
 	}
 
-<<<<<<< HEAD
 	public void SetupEntityType(EntityType entityType){
 		bool result = System.Enum.IsDefined(typeof(EntityType), entityType);
 		entityInfos.entityType = result ? entityType : EntityType.Undefined; 
 	}
 
-=======
->>>>>>> 29ae8ac92b7742914c4c477d588ef8ce27939288
 	public void SetupEntityInfosByPlayerInfos(PlayerInfos playerInfos)
 	{
 		entityInfos.entityName = playerInfos.characterName;
 
-<<<<<<< HEAD
-=======
-		entityInfos.entityType = playerInfos.characterType.ToString();
->>>>>>> 29ae8ac92b7742914c4c477d588ef8ce27939288
 		entityInfos.health = playerInfos.health;
 		entityInfos.mana = playerInfos.mana;
 		entityInfos.maxHealth = playerInfos.maxHealth;
