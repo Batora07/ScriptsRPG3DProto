@@ -11,6 +11,9 @@ public class PlayerAttack : MonoBehaviour {
 	private EnemyHealth enemyHealth;
 	private bool collided;
 
+	public delegate void DamageDealtToEnemyEvent();
+	public static event DamageDealtToEnemyEvent damageDealtToEnemy;
+
 	// Update is called once per frame
 	void Update () {
 		CheckForDamage();
@@ -31,10 +34,19 @@ public class PlayerAttack : MonoBehaviour {
 
 		if (collided)
 		{
+			DamageDealtToEnemy();
 			collided = false;
 			enemyHealth.TakeDamage(damage);
 			// we only want to do damage to an enemy once
 			gameObject.SetActive(false);
+		}
+	}
+
+	public void DamageDealtToEnemy()
+	{
+		if(damageDealtToEnemy != null)
+		{
+			damageDealtToEnemy();
 		}
 	}
 } // class

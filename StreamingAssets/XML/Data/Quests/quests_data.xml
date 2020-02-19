@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<QuestDatabase xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Quests_List>
+    <Quest>
+      <UID_Quest>000_0001</UID_Quest>
+      <questType>Kill</questType>
+      <questStatus>InProgress</questStatus>
+	  <questEntity>Wolf</questEntity>
+	  <requiredNumber>3</requiredNumber>
+      <requiredLvl>0</requiredLvl>	  
+      <questName>Kill 3 Wargs</questName>
+      <quest_UnlockText>Hello Wanderer, welcome to our little town, could you please go to the wolfs den and kill three of these vile spawns ? You will be greatly compensated ! Thank you for listening to my plea Wanderer !</quest_UnlockText>
+      <quest_CompleteText>I successfully killed the 3 wargs for the old lady in the town of Dorlice</quest_CompleteText>
+      <quest_FailedText />
+      <quest_RewardText />
+      <isLocked>true</isLocked>
+      <questsRequiredToUnlock />
+    </Quest>
+    <Quest>
+      <UID_Quest>001_0001</UID_Quest>
+      <questType>Gather</questType>
+      <questStatus>Locked</questStatus>
+	  <questEntity>None</questEntity>
+	  <requiredNumber>3</requiredNumber>
+      <requiredLvl>0</requiredLvl>
+      <questName>Gather 3 beasts skins</questName>
+      <quest_UnlockText>Hi again Wanderer, could you please gather 3 beasts skins to help us with the upcoming winds of winter ? Your help would be greatly appreciated, also I will reward you for your hardships of course.</quest_UnlockText>
+      <quest_CompleteText>I gathered the 3 beasts skins for the old lady.</quest_CompleteText>
+      <quest_FailedText />
+      <quest_RewardText />
+      <isLocked>true</isLocked>
+      <questsRequiredToUnlock />
+    </Quest>
+    <Quest>
+      <UID_Quest>002_0001</UID_Quest>
+      <questType>Find</questType>
+      <questStatus>Locked</questStatus>
+	  <questEntity>None</questEntity>
+	  <requiredNumber>0</requiredNumber>
+      <requiredLvl>0</requiredLvl>
+      <questName>Find the tower entrance</questName>
+      <quest_UnlockText>Hello Wanderer, the tower illuminated three days ago, I think that's why you came to out little town of Dorlice ? Maybe you could learn more about this tower if you get near the statues... They didn't reacted despite all of we did since 3 days. Maybe you'll be the chosen one and will be granted an access of some sort ? Heh, I know, why a wanderer like you would be of any use right ?</quest_UnlockText>
+      <quest_CompleteText>I found the entrance of the Nexus. I should probably look around the place a bit</quest_CompleteText>
+      <quest_FailedText />
+      <quest_RewardText />
+      <isLocked>true</isLocked>
+      <questsRequiredToUnlock />
+    </Quest>
+  </Quests_List>
+</QuestDatabase>

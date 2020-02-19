@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_GeneratorAsset: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 6708460dc4d182846bbf396f0294d487, type: 3}
+  m_Name: QuestsList
+  m_EditorClassIdentifier: 
+  questsLists:
+  - name: LockedQuests
+    questStatus: 0
+    killQuests: []
+  - name: InProgressQuests
+    questStatus: 1
+    killQuests:
+    - UID_Quest: 000_0001
+      questType: 0
+      questStatus: 2
+      questEntity: 0
+      requiredNumber: 0
+      requiredLvl: 0
+      questName: Kill 3 Wargs
+      quest_UnlockText: Hello Wanderer, welcome to our little town, could you please
+        go to the wolfs den and kill three of these vile spawns ? You will be greatly
+        compensated ! Thank you for listening to my plea Wanderer !
+      quest_CompleteText: I successfully killed the 3 wargs for the old lady in the
+        town of Dorlice
+      quest_FailedText: 
+      quest_RewardText: 
+      isLocked: 1
+      questsRequiredToUnlock: []
+      maxKillCount: 3
+      currentKillCount: 3
+      entityToKill: 2
+  - name: CompletedQuests
+    questStatus: 2
+    killQuests: []
+  - name: FailedQuests
+    questStatus: 3
+    killQuests: []
+  - name: RewardedQuests
+    questStatus: 4
+    killQuests: []
+  - name: AbortedQuests
+    questStatus: 5
+    killQuests: []
+  - name: UnlockedQuests
+    questStatus: 6
+    killQuests: []

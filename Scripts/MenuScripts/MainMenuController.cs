@@ -4,12 +4,48 @@ using UnityEngine;
 
 public class MainMenuController : MonoBehaviour {
 
-	public GameObject buttonPanel, characterSelectPanel, createCharacterPanel, optionsPanel;
+	public GameObject buttonPanel, characterSelectPanel, createCharacterPanel, optionsPanel, loadPanel;
+
+	public static MainMenuController instance;
+
+	// GRAPHICS SETTINGS
+	[SerializeField]
+	private GraphicsQuality graphicsQuality;
+	[SerializeField]
+	private GraphicsResolution graphicsResolution;
+	[SerializeField]
+	private bool shadows = true;
 
 	private MainMenuCamera mainMenuCamera;
 
+	public bool Shadows
+	{
+		get
+		{
+			return shadows;
+		}
+	}
+
+	public GraphicsResolution GraphicsResolution
+	{
+		get
+		{
+			return graphicsResolution;
+		}
+	}
+
+	public GraphicsQuality GraphicsQuality
+	{
+		get
+		{
+			return graphicsQuality;
+		}
+	}
+
 	void Awake () {
 		mainMenuCamera = Camera.main.GetComponent<MainMenuCamera>();
+
+		MakeSingleton();
 	}
 	
 	public void PlayGame() {
@@ -27,13 +63,19 @@ public class MainMenuController : MonoBehaviour {
 
 	public void StartGame()
 	{
-		SceneLoader.instance.LoadLevel("Village");
+		SceneLoader.instance.LoadLevelAsync("Village");
 	}
 
 	public void CreateCharacter()
 	{
 		characterSelectPanel.SetActive(false);
 		createCharacterPanel.SetActive(true);
+	}
+
+	public void OpenLoadSaveMenu()
+	{
+		buttonPanel.SetActive(false);
+		loadPanel.SetActive(true);
 	}
 
 	public void Accept()
@@ -60,6 +102,12 @@ public class MainMenuController : MonoBehaviour {
 		buttonPanel.SetActive(true);
 	}
 
+	public void CloseLoadPanel()
+	{
+		loadPanel.SetActive(false);
+		buttonPanel.SetActive(true);
+	}
+
 	public void SetQuality()
 	{
 		ChangeQualityLevel();
@@ -70,61 +118,104 @@ public class MainMenuController : MonoBehaviour {
 		ChangeResolution();
 	}
 
-	void ChangeQualityLevel()
+	public void SetChangeGraphicsQuality(GraphicsQuality _quality)
 	{
-		string level = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name;
+		graphicsQuality = _quality;
+		SetQuality();
+	}
 
-		switch (level)
+	public void SetGraphicsResolution(GraphicsResolution _resolution)
+	{
+		graphicsResolution = _resolution;
+		SetResolution();
+	}
+
+	public void SetShadows(bool _shadows)
+	{
+		shadows = _shadows;
+		ChangeShadows();
+	}
+
+	private void ChangeQualityLevel()
+	{
+	//	string level = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name;
+
+		switch (graphicsQuality)
 		{
-			case "Low":
+			case GraphicsQuality.Low:
 				QualitySettings.SetQualityLevel(0);
 				break;
 
-			case "Normal":
+			case GraphicsQuality.Normal:
 				QualitySettings.SetQualityLevel(1);
 				break;
 
-			case "High":
+			case GraphicsQuality.High:
 				QualitySettings.SetQualityLevel(2);
 				break;
 
-			case "Ultra":
+			case GraphicsQuality.Ultra:
 				QualitySettings.SetQualityLevel(3);
 				break;
+		}
 
-			case "No Shadows":
-				if(QualitySettings.shadows == ShadowQuality.All)
-				{
-					QualitySettings.shadows = ShadowQuality.Disable;
-				} else
-				{
-					QualitySettings.shadows = ShadowQuality.All;
-				}
+		ChangeShadows();
+	}
+
+	private void ChangeShadows()
+	{
+		if(!shadows)
+		{
+			QualitySettings.shadows = ShadowQuality.Disable;
+
+		}
+		else
+		{
+			QualitySettings.shadows = ShadowQuality.All;
+		}
+	}
+
+	private void ChangeResolution()
+	{
+		//string index = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name;
+
+		switch (graphicsResolution)
+		{
+			case GraphicsResolution._1152x648:
+				Screen.SetResolution(1152, 648, true);
+				break;
+
+			case GraphicsResolution._1280x720:
+				Screen.SetResolution(1280, 720, true);
+				break;
+
+			case GraphicsResolution._1360x764:
+				Screen.SetResolution(1360, 768, true);
+				break;
+
+			case GraphicsResolution._1920x1080:
+				Screen.SetResolution(1920, 1080, true);
 				break;
 		}
 	}
 
-	void ChangeResolution()
+	public void SetGraphicsSettingsFromSaveFile(PlayerData saveFile)
 	{
-		string index = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name;
+		SetChangeGraphicsQuality(saveFile.SaveSettingsPlayer.graphicsQuality);
+		SetGraphicsResolution(saveFile.SaveSettingsPlayer.graphicsResolution);
+		SetShadows(saveFile.SaveSettingsPlayer.isShadowsEnabled);
+	}
 
-		switch (index)
+	void MakeSingleton()
+	{
+		if(instance != null)
 		{
-			case "0":
-				Screen.SetResolution(1152, 648, true);
-				break;
-
-			case "1":
-				Screen.SetResolution(1280, 720, true);
-				break;
-
-			case "2":
-				Screen.SetResolution(1360, 768, true);
-				break;
-
-			case "3":
-				Screen.SetResolution(1920, 1080, true);
-				break;
+			Destroy(gameObject);
+		}
+		else
+		{
+			instance = this;
+			DontDestroyOnLoad(gameObject);
 		}
 	}
 

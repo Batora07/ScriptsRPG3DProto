@@ -13,8 +13,12 @@ public class CameraOrbit : Orbit {
 	public Vector2 angle_Offset = new Vector2(0, -0.25f);
 
 	private float zoomValue;
+	private float currentAxisXValue;
+	private float currentAxisYValue;
+	private float dist;
 	private Vector3 camera_Position_Temp;
 	private Vector3 camera_Position;
+	private Vector3 MouseStart, MouseMove;
 
 	private Transform playerTarget;
 	private Camera mainCamera;	
@@ -30,9 +34,11 @@ public class CameraOrbit : Orbit {
 		mainCamera = Camera.main;
 
 		camera_Position_Temp = mainCamera.transform.localPosition;
+		currentAxisXValue = angle_Offset.x;
+		currentAxisXValue = angle_Offset.y;
 		camera_Position = camera_Position_Temp;
 
-		MouseLock.MouseLocked = true;
+		MouseLock.MouseLocked = false;
 	}
 	
 	// Update is called once per frame
@@ -48,9 +54,8 @@ public class CameraOrbit : Orbit {
 	{
 		if (MouseLock.MouseLocked)
 		{
-			// get the movement of our mouse
-			spherical_Vector_Data.Azimuth += Input.GetAxis("Mouse X") * orbit_Speed.x;
-			spherical_Vector_Data.Zenith += Input.GetAxis("Mouse Y") * orbit_Speed.y;
+			spherical_Vector_Data.Azimuth += Input.GetAxis("Mouse X") * orbit_Speed.x; //Input.GetAxis("Mouse X") * orbit_Speed.x;
+			spherical_Vector_Data.Zenith += Input.GetAxis("Mouse Y") * orbit_Speed.y; //(mainCamera.transform.localEulerAngles.y + MouseMove.y); //Input.GetAxis("Mouse Y") * orbit_Speed.y
 		}
 
 		//the clamping prevents from getting past the head of the player with the camera looking top_down
@@ -87,7 +92,7 @@ public class CameraOrbit : Orbit {
 
 	void HandleMouseLocking()
 	{
-		if (Input.GetKeyDown(KeyCode.Tab))
+		if (Input.GetKeyDown(KeyCode.Mouse1))
 		{
 			if (MouseLock.MouseLocked)
 			{
@@ -96,6 +101,11 @@ public class CameraOrbit : Orbit {
 			{
 				MouseLock.MouseLocked = true;
 			}
+		}
+
+		if(Input.GetKeyUp(KeyCode.Mouse1))
+		{
+			MouseLock.MouseLocked = false;
 		}
 	}
 

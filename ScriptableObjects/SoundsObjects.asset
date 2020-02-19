@@ -1,0 +1,496 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_GeneratorAsset: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: ce01946928429ce43916fae3f7ca65a4, type: 3}
+  m_Name: SoundsObjects
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Main Menu
+    scene: 0
+    sounds:
+    - name: BackgroundMusic
+      trackFile: {fileID: 8300000, guid: aeb5606e917c9cf48beac1dbdbe89594, type: 3}
+      audioType: 0
+      playOnAwake: 1
+      loop: 1
+      randomizeSound: 0
+      audioVolume: -100
+    - name: MenuButtonClic
+      trackFile: {fileID: 8300000, guid: 2430550f528abdc448a2e406747643d6, type: 3}
+      audioType: 1
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 0
+      audioVolume: -100
+  - name: OrcWorld
+    scene: 2
+    sounds:
+    - name: BackgroundMusic
+      trackFile: {fileID: 8300000, guid: b830ad5609ed82646ae664927bcba215, type: 3}
+      audioType: 0
+      playOnAwake: 1
+      loop: 1
+      randomizeSound: 0
+      audioVolume: -20
+    - name: OrcAttack1
+      trackFile: {fileID: 8300000, guid: 8e9e5058546cf6d4e93965b3c3b996c4, type: 3}
+      audioType: 2
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: OrcAttack2
+      trackFile: {fileID: 8300000, guid: bb93ef482c6b14042baab2728bc1cb5f, type: 3}
+      audioType: 2
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: OrcAttack3
+      trackFile: {fileID: 8300000, guid: 5db66c320522b72498740a633d810a6e, type: 3}
+      audioType: 2
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: OrcDeath1
+      trackFile: {fileID: 8300000, guid: 4e282864e6d666e4a876882cde3c27c3, type: 3}
+      audioType: 2
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: OrcDeath2
+      trackFile: {fileID: 8300000, guid: d5749a07a9dbc69478038177aab70064, type: 3}
+      audioType: 2
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: OrcAttack4
+      trackFile: {fileID: 8300000, guid: d5749a07a9dbc69478038177aab70064, type: 3}
+      audioType: 2
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: OrcHit1
+      trackFile: {fileID: 8300000, guid: d5bdacd72a1553d41b1686b11c537f78, type: 3}
+      audioType: 2
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: OrcHit2
+      trackFile: {fileID: 8300000, guid: ba16f14ccc847a049bf7a05fa7788220, type: 3}
+      audioType: 2
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: AmbiantSound1
+      trackFile: {fileID: 8300000, guid: af61c39e03fb4b841afb71b6a8bd7a54, type: 3}
+      audioType: 3
+      playOnAwake: 1
+      loop: 1
+      randomizeSound: 0
+      audioVolume: -20
+  - name: Common
+    scene: 5
+    sounds:
+    - name: MaleAAttack1
+      trackFile: {fileID: 8300000, guid: 5bb74681e5af10d41aa0192e3a73e606, type: 3}
+      audioType: 2
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: MaleAAttack2
+      trackFile: {fileID: 8300000, guid: d727f1a4656fdb8449a9e5af3b39a2fd, type: 3}
+      audioType: 2
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: MaleAAttack3
+      trackFile: {fileID: 8300000, guid: 4dd6860c09e7c8e4fb9df0c05cf3e81b, type: 3}
+      audioType: 2
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: MaleADeath1
+      trackFile: {fileID: 8300000, guid: 33fc662a5f6b2634797e8933d0dd0122, type: 3}
+      audioType: 2
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: MaleADeath2
+      trackFile: {fileID: 8300000, guid: adfa8c6cd90013a4c8ff7609a2cd2696, type: 3}
+      audioType: 2
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: MaleADeath3
+      trackFile: {fileID: 8300000, guid: 8de82bef6813dd0469cd97ae448c7a3a, type: 3}
+      audioType: 2
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: MaleAHit
+      trackFile: {fileID: 8300000, guid: f0680b94f512344428437f13bee6b35e, type: 3}
+      audioType: 2
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: MaleBAttack1
+      trackFile: {fileID: 8300000, guid: f9391c4dfebaa4d4685d676a1ec4fa29, type: 3}
+      audioType: 2
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: MaleBAttack2
+      trackFile: {fileID: 8300000, guid: d476c8542f4bedb47b47edd2e123f6b1, type: 3}
+      audioType: 2
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: MaleBAttack3
+      trackFile: {fileID: 8300000, guid: 7ae811c70b04f5043941b31ddcaf28fb, type: 3}
+      audioType: 2
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: MaleBDeath1
+      trackFile: {fileID: 8300000, guid: 09d8629b19dfc9b488be21fae43a09ba, type: 3}
+      audioType: 2
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: MaleBHit1
+      trackFile: {fileID: 8300000, guid: 5d3796cb414bc4c47bd40a0d5207a41d, type: 3}
+      audioType: 2
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: MaleBHit2
+      trackFile: {fileID: 8300000, guid: 135564a3daef913489720ad5ad81e171, type: 3}
+      audioType: 2
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: FemaleAAttack1
+      trackFile: {fileID: 8300000, guid: 1dfaf15ee89fe5d4697230b12557bbde, type: 3}
+      audioType: 2
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: FemaleAAttack2
+      trackFile: {fileID: 8300000, guid: feee891274b81614e985ab80a7b3dcff, type: 3}
+      audioType: 2
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: FemaleAAttack3
+      trackFile: {fileID: 8300000, guid: ca98cce91f94ae842a78a8e4381e99fc, type: 3}
+      audioType: 2
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: FemaleADeath1
+      trackFile: {fileID: 8300000, guid: 48d444d8f5d40754a947bac6020649bd, type: 3}
+      audioType: 2
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: FemaleADeath2
+      trackFile: {fileID: 8300000, guid: 012cc2ed9b1b51249ae2e2ab0dcee94d, type: 3}
+      audioType: 2
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: FemaleAHit1
+      trackFile: {fileID: 8300000, guid: f2730e080c1cf2a46a70110caccbda43, type: 3}
+      audioType: 2
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: FemaleAHit2
+      trackFile: {fileID: 8300000, guid: 8c58aa1f975e5be47ac8454010d5f535, type: 3}
+      audioType: 2
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: FemaleAHit3
+      trackFile: {fileID: 8300000, guid: 21b69d98c0a67f240a27d47743e1f167, type: 3}
+      audioType: 2
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: DeathMusic
+      trackFile: {fileID: 8300000, guid: 88468a1e983eec04e9f4d959bff42ce3, type: 3}
+      audioType: 0
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 0
+      audioVolume: -20
+  - name: SkyWorld
+    scene: 4
+    sounds:
+    - name: BackGroundMusic
+      trackFile: {fileID: 8300000, guid: 7bfe6aa7664e21b4898a800e68c1d205, type: 3}
+      audioType: 0
+      playOnAwake: 1
+      loop: 1
+      randomizeSound: 0
+      audioVolume: -20
+    - name: GolemAttack1
+      trackFile: {fileID: 8300000, guid: 2897b208991b0f24fb08b8a0da9d907c, type: 3}
+      audioType: 2
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: GolemAttack2
+      trackFile: {fileID: 8300000, guid: a8ec5dd1a48dba54bb75ec2afbc9db5f, type: 3}
+      audioType: 2
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: GolemDeath1
+      trackFile: {fileID: 8300000, guid: ae34f6c72ba108a4c8e2fdc9cf8bfc90, type: 3}
+      audioType: 2
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: GolemHit1
+      trackFile: {fileID: 8300000, guid: b1ce220995e452e47b45c7d71c078602, type: 3}
+      audioType: 2
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: AmbiantSound1
+      trackFile: {fileID: 8300000, guid: d326a371d02c7e64a98f04395ce713b7, type: 3}
+      audioType: 3
+      playOnAwake: 1
+      loop: 1
+      randomizeSound: 0
+      audioVolume: -20
+  - name: SFX
+    scene: 6
+    sounds:
+    - name: SlashAttack1
+      trackFile: {fileID: 8300000, guid: 1b66f17d1fa612f4d93852869859a9eb, type: 3}
+      audioType: 1
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: SlashAttack2
+      trackFile: {fileID: 8300000, guid: 59857fbdfc8b1b3409f01326f611b24d, type: 3}
+      audioType: 1
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: SlashAttack3
+      trackFile: {fileID: 8300000, guid: 05387198866623a419a00043fe6c373d, type: 3}
+      audioType: 1
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: BonkAttack1
+      trackFile: {fileID: 8300000, guid: 1aa2053ba37381545808cc96dbbac172, type: 3}
+      audioType: 1
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: BonkAttack2
+      trackFile: {fileID: 8300000, guid: faa2d8786d06a464da61ce127ed81882, type: 3}
+      audioType: 1
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: BonkAttack3
+      trackFile: {fileID: 8300000, guid: c0e519031ac199a4fab5f38fc3142a29, type: 3}
+      audioType: 1
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: BonkAttack4
+      trackFile: {fileID: 8300000, guid: 8c85e0ec5913ee840934e1847d0e49e8, type: 3}
+      audioType: 1
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: BodyHit1
+      trackFile: {fileID: 8300000, guid: 820ab76b59eb881409484689ac5ecef7, type: 3}
+      audioType: 1
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: BodyHit2
+      trackFile: {fileID: 8300000, guid: 49e7329c2dcf9544ebb4fa0b421e8134, type: 3}
+      audioType: 1
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: BodyHit3
+      trackFile: {fileID: 8300000, guid: 25d24e38f80417e48a3a6a8bd6b8c066, type: 3}
+      audioType: 1
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: BodyHit4
+      trackFile: {fileID: 8300000, guid: 686e986403396c8469492bfcf7c60370, type: 3}
+      audioType: 1
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: BodyHit5
+      trackFile: {fileID: 8300000, guid: ee7ebcef90b73904aa0b9414a1b18789, type: 3}
+      audioType: 1
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: BodyHit6
+      trackFile: {fileID: 8300000, guid: 5ad14c785c7134748b8e46b198625db1, type: 3}
+      audioType: 1
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: BodyHit7
+      trackFile: {fileID: 8300000, guid: 863c499c4d35f104082ae31850ad94f1, type: 3}
+      audioType: 1
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: BodyHit8
+      trackFile: {fileID: 8300000, guid: a6640c53b13fdbf46b55047fde30deca, type: 3}
+      audioType: 1
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+  - name: WolfWorld
+    scene: 3
+    sounds:
+    - name: WargAttack1
+      trackFile: {fileID: 8300000, guid: 8cdd3cc86ba83684b856944f392cff83, type: 3}
+      audioType: 2
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: WargAttack2
+      trackFile: {fileID: 8300000, guid: 15db6558bac967d4ab8acad25b594243, type: 3}
+      audioType: 2
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: WargAttack3
+      trackFile: {fileID: 8300000, guid: 20e060e8be643634b99df96698d60d9b, type: 3}
+      audioType: 2
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: WargAttack4
+      trackFile: {fileID: 8300000, guid: 6b146813b058d244f97a605e4c78429e, type: 3}
+      audioType: 2
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: WargDeath1
+      trackFile: {fileID: 8300000, guid: 10955d628288c234895bafa25c46d90d, type: 3}
+      audioType: 2
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: WargDeath2
+      trackFile: {fileID: 8300000, guid: b54a320232d00454c8bae7fe8b0fceca, type: 3}
+      audioType: 2
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: WargHit1
+      trackFile: {fileID: 8300000, guid: 8a06a795f235e7b4a8363ac5625162fb, type: 3}
+      audioType: 2
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: WargHit2
+      trackFile: {fileID: 8300000, guid: 54d1ed7cde126b84bae64020499939bd, type: 3}
+      audioType: 2
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: WargHit3
+      trackFile: {fileID: 8300000, guid: 6b146813b058d244f97a605e4c78429e, type: 3}
+      audioType: 2
+      playOnAwake: 0
+      loop: 0
+      randomizeSound: 1
+      audioVolume: -20
+    - name: BackgroundMusic
+      trackFile: {fileID: 8300000, guid: 63672f8149beed649840bb6c7996c3e5, type: 3}
+      audioType: 0
+      playOnAwake: 1
+      loop: 1
+      randomizeSound: 0
+      audioVolume: -20
+    - name: AmbiantSound
+      trackFile: {fileID: 8300000, guid: 3f55e607f256d9e4e8510d12df207843, type: 3}
+      audioType: 3
+      playOnAwake: 1
+      loop: 1
+      randomizeSound: 0
+      audioVolume: -20
