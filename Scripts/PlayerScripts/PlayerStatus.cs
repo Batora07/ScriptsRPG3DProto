@@ -35,8 +35,11 @@ public class PlayerStatus : MonoBehaviour {
 
 	public SkillsListing skills;
 	public SelectCharacter selectCharacter;
+<<<<<<< HEAD
 
 	public PlayerQuests playerQuests;
+=======
+>>>>>>> 29ae8ac92b7742914c4c477d588ef8ce27939288
 
 	private GameObject itemsPanel;
 
@@ -137,7 +140,11 @@ public class PlayerStatus : MonoBehaviour {
 		playerHealth.maxHealth = infosPlayer.maxHealth;
 		playerHealth.health = infosPlayer.health;
 		playerMana.maxMana = infosPlayer.maxMana;
+<<<<<<< HEAD
 		playerMana.mana = infosPlayer.mana;
+=======
+		playerMana.mana = infosPlayer.mana; 
+>>>>>>> 29ae8ac92b7742914c4c477d588ef8ce27939288
 	}
 
 	public PlayerInfos SetPlayerInfos()
@@ -151,6 +158,10 @@ public class PlayerStatus : MonoBehaviour {
 		newPlayerInfos.maxHealth = playerHealth.maxHealth;
 		newPlayerInfos.mana = playerMana.mana;
 		newPlayerInfos.maxMana = playerMana.maxMana;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 29ae8ac92b7742914c4c477d588ef8ce27939288
 		return newPlayerInfos;
 	}
 }
