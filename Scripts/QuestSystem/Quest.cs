@@ -13,13 +13,18 @@ public class Quest
 	public EntityType questEntity;
 	public int requiredNumber;
 	public int requiredLvl;
+	public int currentObjectiveNumber;
 
-	public string questName;
-
-	public string quest_UnlockText;
-	public string quest_CompleteText;
-	public string quest_FailedText;
-	public string quest_RewardText;
+	public string questName;			    // could be used by both UI map panel and quest log
+	public string quest_ShortTitle;         // Used by UI map panel
+	public string quest_ShortButtonUITitle; // Used by UI map panel
+	public string quest_ShortInProgressText;// Used by UI map panel
+	public string quest_ShortInFailedText;  // Used by UI map panel
+	public string quest_ShortCompletedText; // Used by UI map panel
+	public string quest_UnlockText;         // Used by quest log
+	public string quest_CompleteText;       // Used by quest log
+	public string quest_FailedText;         // Used by quest log
+	public string quest_RewardText;         // Used by quest log
 
 	public bool isLocked = true;
 
