@@ -8,11 +8,36 @@
 	  <questEntity>Wolf</questEntity>
 	  <requiredNumber>3</requiredNumber>
       <requiredLvl>0</requiredLvl>	  
-      <questName>Kill 3 Wargs</questName>
+      <questName>Stopping Wolves Den</questName>
+	  <quest_ShortTitle>Kill 3 Wargs</quest_ShortTitle>
+	  <quest_ShortButtonUITitle>Stopping Wolves Den</quest_ShortButtonUITitle>
+	  <quest_ShortInProgressText>I have to kill 3 Warg enemies, I should found some in the Wolf forest.</quest_ShortInProgressText>
+	  <quest_ShortInFailedText>I failed to kill the 3 wargs enemies in due time... </quest_ShortInFailedText>
+	  <quest_ShortCompletedText>I successfully killed 3 wargs enemies, I should report to the quest giver.</quest_ShortCompletedText>
       <quest_UnlockText>Hello Wanderer, welcome to our little town, could you please go to the wolfs den and kill three of these vile spawns ? You will be greatly compensated ! Thank you for listening to my plea Wanderer !</quest_UnlockText>
-      <quest_CompleteText>I successfully killed the 3 wargs for the old lady in the town of Dorlice</quest_CompleteText>
+      <quest_CompleteText>I successfully killed the 3 wargs for the old lady in the town of Dorlice</quest_CompleteText>	  
       <quest_FailedText />
-      <quest_RewardText />
+      <quest_RewardText>I successfully killed the 3 wargs for the old lady in the town of Dorlice, I talked to the old lady and got the money for my work.</quest_RewardText>
+      <isLocked>true</isLocked>
+      <questsRequiredToUnlock />
+    </Quest>
+	<Quest>
+	  <UID_Quest>000_0002</UID_Quest>
+      <questType>Kill</questType>
+      <questStatus>InProgress</questStatus>
+	  <questEntity>Orc</questEntity>
+	  <requiredNumber>3</requiredNumber>
+      <requiredLvl>0</requiredLvl>	  
+      <questName>Stopping Orc Den</questName>
+	  <quest_ShortTitle>Kill 3 Orcs</quest_ShortTitle>
+	  <quest_ShortButtonUITitle>Stopping Orcs Den</quest_ShortButtonUITitle>
+	  <quest_ShortInProgressText>I have to kill 3 Orcs enemies, I should found some in the Orcs forest.</quest_ShortInProgressText>
+	  <quest_ShortInFailedText>I failed to kill the 3 Orcs enemies in due time... </quest_ShortInFailedText>
+	  <quest_ShortCompletedText>I successfully killed 3 Orcs enemies, I should report to the quest giver.</quest_ShortCompletedText>
+      <quest_UnlockText>Hello Wanderer, welcome to our little town, could you please go to the Orcs den and kill three of these vile spawns ? You will be greatly compensated ! Thank you for listening to my plea Wanderer !</quest_UnlockText>
+      <quest_CompleteText>I successfully killed the 3 Orcs for the old lady in the town of Dorlice</quest_CompleteText>	  
+      <quest_FailedText />
+      <quest_RewardText>I successfully killed the 3 Orcs for the old lady in the town of Dorlice, I talked to the old lady and got the money for my work.</quest_RewardText>
       <isLocked>true</isLocked>
       <questsRequiredToUnlock />
     </Quest>
@@ -24,6 +49,11 @@
 	  <requiredNumber>3</requiredNumber>
       <requiredLvl>0</requiredLvl>
       <questName>Gather 3 beasts skins</questName>
+	  <quest_ShortTitle/>
+	  <quest_ShortButtonUITitle />
+	  <quest_ShortInProgressText/>
+	  <quest_ShortInFailedText/>
+	  <quest_ShortCompletedText/>
       <quest_UnlockText>Hi again Wanderer, could you please gather 3 beasts skins to help us with the upcoming winds of winter ? Your help would be greatly appreciated, also I will reward you for your hardships of course.</quest_UnlockText>
       <quest_CompleteText>I gathered the 3 beasts skins for the old lady.</quest_CompleteText>
       <quest_FailedText />
@@ -39,6 +69,11 @@
 	  <requiredNumber>0</requiredNumber>
       <requiredLvl>0</requiredLvl>
       <questName>Find the tower entrance</questName>
+	  <quest_ShortTitle/>
+	  <quest_ShortButtonUITitle />
+	  <quest_ShortInProgressText/>
+	  <quest_ShortInFailedText/>
+	  <quest_ShortCompletedText/>
       <quest_UnlockText>Hello Wanderer, the tower illuminated three days ago, I think that's why you came to out little town of Dorlice ? Maybe you could learn more about this tower if you get near the statues... They didn't reacted despite all of we did since 3 days. Maybe you'll be the chosen one and will be granted an access of some sort ? Heh, I know, why a wanderer like you would be of any use right ?</quest_UnlockText>
       <quest_CompleteText>I found the entrance of the Nexus. I should probably look around the place a bit</quest_CompleteText>
       <quest_FailedText />

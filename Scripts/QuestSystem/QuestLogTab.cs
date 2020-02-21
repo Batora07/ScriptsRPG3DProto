@@ -23,9 +23,16 @@ public class QuestLogTab : MonoBehaviour
 
 	public void DisplayQuestInfos()
 	{
+		QuestLogTab[] otherQuests = this.transform.parent.GetComponentsInChildren<QuestLogTab>();
+		foreach(QuestLogTab others in otherQuests)
+		{
+			others.GetComponent<Button>().GetComponent<Image>().sprite = unselectedItem;
+		}
+		
 		btn.GetComponent<Image>().sprite = selectedItem;
 		QuestLogDisplay.instance.ClearSelectedQuest();
 		QuestLogDisplay.instance.DisplaySelectedQuest(questInfos);
+		QuestLogDisplay.instance.currentQuestDisplayed = questInfos;
 	}
 
 	public void Display(Quest quest)

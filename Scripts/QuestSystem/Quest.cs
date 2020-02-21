@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
-public class Quest
+public class Quest : IEquatable<Quest>
 {
 	public string UID_Quest;
 	public QuestType questType;
@@ -221,4 +221,23 @@ public class Quest
 		return true;
 	}
 
+	/// <summary>
+	/// Overrided method that compares the UID between two Quests
+	/// </summary>
+	/// <param name="other"></param>
+	/// <returns></returns>
+	public bool Equals(Quest other)
+	{		
+		if(other.UID_Quest == this.UID_Quest)
+			return true;
+		else
+			return false;
+	}
+
+	public override int GetHashCode()
+	{
+		int hashUID_Quest = UID_Quest == null ? 0 : UID_Quest.GetHashCode();
+		
+		return hashUID_Quest;
+	}
 }

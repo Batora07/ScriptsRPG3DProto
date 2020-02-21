@@ -18,6 +18,7 @@ public class EnemyHealth : MonoBehaviour {
 
 	public delegate void KilledEntity(EntityType enemyType);
 	public static event KilledEntity entityKilled;
+	private bool isDirty = false;
 
 	private void Awake()
 	{
@@ -29,20 +30,26 @@ public class EnemyHealth : MonoBehaviour {
 	
 	public void TakeDamage(float damageAmount)
 	{
+		// yep it's dead now
 		if (health - damageAmount < 1)
 		{
-			isDead = true;
-			UpdateHealtEntityStatus(0);
-			// DESTROY THE ENEMY
-			//  State to idle then
-			SetToIdleState();
-
-			EntityKilled(entityStatus.entityInfos.entityType);
-			DisableVFX();
-			anim.SetBool(EnemyAIState.DeathState.ToString(), true);
-			// make the death anim
-			StartCoroutine(WaitForEndDeathAnimation());
+			// doing this once
+			if(isDirty == false)
+			{
+				isDead = true;
+				UpdateHealtEntityStatus(0);
+				// DESTROY THE ENEMY
+				//  State to idle then
+				SetToIdleState();				
+				isDirty = true;
+				EntityKilled(entityStatus.entityInfos.entityType);
+				DisableVFX();
+				anim.SetBool(EnemyAIState.DeathState.ToString(), true);
+				// make the death anim
+				StartCoroutine(WaitForEndDeathAnimation());
+			}			
 		}
+		// just taking damage here, continue if you dare bruuuuuuuh !
 		else
 		{
 			SoundManager.instance.RandomizeSfx(enemyAI.SfxAudio, enemyAI.BodyHitSounds);
@@ -105,7 +112,6 @@ public class EnemyHealth : MonoBehaviour {
 		{
 			entityKilled(entityType);
 			StatsManager.enemyDefeated++;
-			//Debug.Log(entityType + " killed");
 		}
 	}
 }// class
