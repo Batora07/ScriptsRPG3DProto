@@ -37,11 +37,11 @@ public class KillQuest : Quest
 		quest_RewardText = questToSetup.quest_RewardText;
 
 		// UI Map Quest Panel
-		quest_ShortTitle = questToSetup.quest_ShortTitle;         
-		quest_ShortButtonUITitle = questToSetup.quest_ShortButtonUITitle; 
+		quest_ShortTitle = questToSetup.quest_ShortTitle;
+		quest_ShortButtonUITitle = questToSetup.quest_ShortButtonUITitle;
 		quest_ShortInProgressText = questToSetup.quest_ShortInProgressText;
-		quest_ShortInFailedText = questToSetup.quest_ShortInFailedText;  
-		quest_ShortCompletedText = questToSetup.quest_ShortCompletedText; 
+		quest_ShortInFailedText = questToSetup.quest_ShortInFailedText;
+		quest_ShortCompletedText = questToSetup.quest_ShortCompletedText;
 
 		isLocked = questToSetup.isLocked;
 		questsRequiredToUnlock = questToSetup.questsRequiredToUnlock;
@@ -104,7 +104,7 @@ public class KillQuest : Quest
 					CompleteQuest();
 				}
 			}
-		}		
+		}
 	}
 
 	/// <summary>
@@ -117,7 +117,7 @@ public class KillQuest : Quest
 		int nbLists = QuestsManager.instance.questsScriptableObject.questsLists.Length;
 		int nbPreviousListIndex = 0;
 		int nbNextListIndex = 0;
-		
+
 		List<KillQuest> previousKillQuestList = new List<KillQuest>();
 		List<KillQuest> nextKillQuestList = new List<KillQuest>();
 
@@ -136,9 +136,12 @@ public class KillQuest : Quest
 		}
 
 		nextKillQuestList.Add(this);
-		previousKillQuestList.Remove(previousKillQuestList.Single(q => q.UID_Quest == this.UID_Quest));
+		if(this.UID_Quest != null && previousKillQuestList.Count > 0)
+		{
+			previousKillQuestList.Remove(previousKillQuestList.SingleOrDefault(q => q.UID_Quest == this.UID_Quest));
 
-		QuestsManager.instance.questsScriptableObject.questsLists[nbPreviousListIndex].killQuests = previousKillQuestList.ToArray();
-		QuestsManager.instance.questsScriptableObject.questsLists[nbNextListIndex].killQuests = nextKillQuestList.ToArray();
+			QuestsManager.instance.questsScriptableObject.questsLists[nbPreviousListIndex].killQuests = previousKillQuestList.ToArray();
+			QuestsManager.instance.questsScriptableObject.questsLists[nbNextListIndex].killQuests = nextKillQuestList.ToArray();
+		}
 	}
 }

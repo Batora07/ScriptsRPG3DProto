@@ -78,6 +78,7 @@ public class GameManager : MonoBehaviour {
 			{
 				SavingData.instance.GenerateAutoSave.CreateAutoSave();
 			}
+			MainMenuController.instance.SetWindowMode(SavingData.instance.CurrentSavedState.SaveSettingsPlayer.windowMode == WindowMode.Windowed ? true : false);
 
 			// ONCE THE SCENE IS LOADED, FIRST THING TO CHANGE IS THE SOUND
 			SoundManager.instance.LoadAudioPrefs(SavingData.instance.CurrentSavedState);
@@ -184,6 +185,14 @@ public class GameManager : MonoBehaviour {
 
 			// once all of this is done then disable the loading screen
 			SceneLoader.instance.DisableLoadingScreen();
+		}
+		else
+		{
+			// create an automatic save state
+			if(SavingData.instance.CurrentSavedState.SavePlayerInfos.level == 0)
+			{
+				SavingData.instance.GenerateAutoSave.CreateAutoSave();
+			}
 		}
 	}
 

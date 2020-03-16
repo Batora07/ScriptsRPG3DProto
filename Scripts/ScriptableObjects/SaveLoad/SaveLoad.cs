@@ -39,6 +39,7 @@ public class SaveSettings
 	// GRAPHICS SETTINGS
 	public GraphicsQuality graphicsQuality;
 	public GraphicsResolution graphicsResolution;
+	public WindowMode windowMode;
 	public bool isShadowsEnabled = true;
 
 	// CAMERA SETTINGS

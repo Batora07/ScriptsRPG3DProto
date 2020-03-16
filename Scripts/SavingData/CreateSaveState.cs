@@ -75,6 +75,7 @@ public class CreateSaveState
 		savedSettings.graphicsQuality = MainMenuController.instance.GraphicsQuality;
 		savedSettings.graphicsResolution = MainMenuController.instance.GraphicsResolution;
 		savedSettings.isShadowsEnabled = MainMenuController.instance.Shadows;
+		savedSettings.windowMode = MainMenuController.instance.WindowMode;
 
 		// CAMERA SETTINGS
 		savedSettings.cameraPosAtSave = GetSaveTransformFromTransform(Camera.main.transform);

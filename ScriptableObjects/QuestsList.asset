@@ -19,29 +19,66 @@ MonoBehaviour:
     killQuests: []
   - name: InProgressQuests
     questStatus: 1
+    killQuests: []
+  - name: CompletedQuests
+    questStatus: 2
     killQuests:
     - UID_Quest: 000_0001
       questType: 0
       questStatus: 2
-      questEntity: 0
-      requiredNumber: 0
+      questEntity: 2
+      requiredNumber: 3
       requiredLvl: 0
-      questName: Kill 3 Wargs
+      currentObjectiveNumber: 3
+      questName: Stopping Wolves Den
+      quest_ShortTitle: Kill 3 Wargs
+      quest_ShortButtonUITitle: Stopping Wolves Den
+      quest_ShortInProgressText: I have to kill 3 Warg enemies, I should found some
+        in the Wolf forest.
+      quest_ShortInFailedText: 'I failed to kill the 3 wargs enemies in due time... '
+      quest_ShortCompletedText: I successfully killed 3 wargs enemies, I should report
+        to the quest giver.
       quest_UnlockText: Hello Wanderer, welcome to our little town, could you please
         go to the wolfs den and kill three of these vile spawns ? You will be greatly
         compensated ! Thank you for listening to my plea Wanderer !
       quest_CompleteText: I successfully killed the 3 wargs for the old lady in the
         town of Dorlice
       quest_FailedText: 
-      quest_RewardText: 
-      isLocked: 1
+      quest_RewardText: I successfully killed the 3 wargs for the old lady in the
+        town of Dorlice, I talked to the old lady and got the money for my work.
+      isLocked: 0
       questsRequiredToUnlock: []
       maxKillCount: 3
       currentKillCount: 3
       entityToKill: 2
-  - name: CompletedQuests
-    questStatus: 2
-    killQuests: []
+    - UID_Quest: 000_0002
+      questType: 0
+      questStatus: 2
+      questEntity: 5
+      requiredNumber: 3
+      requiredLvl: 0
+      currentObjectiveNumber: 3
+      questName: Stopping Orc Den
+      quest_ShortTitle: Kill 3 Orcs
+      quest_ShortButtonUITitle: Stopping Orcs Den
+      quest_ShortInProgressText: I have to kill 3 Orcs enemies, I should found some
+        in the Orcs forest.
+      quest_ShortInFailedText: 'I failed to kill the 3 Orcs enemies in due time... '
+      quest_ShortCompletedText: I successfully killed 3 Orcs enemies, I should report
+        to the quest giver.
+      quest_UnlockText: Hello Wanderer, welcome to our little town, could you please
+        go to the Orcs den and kill three of these vile spawns ? You will be greatly
+        compensated ! Thank you for listening to my plea Wanderer !
+      quest_CompleteText: I successfully killed the 3 Orcs for the old lady in the
+        town of Dorlice
+      quest_FailedText: 
+      quest_RewardText: I successfully killed the 3 Orcs for the old lady in the town
+        of Dorlice, I talked to the old lady and got the money for my work.
+      isLocked: 0
+      questsRequiredToUnlock: []
+      maxKillCount: 3
+      currentKillCount: 3
+      entityToKill: 5
   - name: FailedQuests
     questStatus: 3
     killQuests: []

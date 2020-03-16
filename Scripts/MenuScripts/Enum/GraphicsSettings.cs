@@ -17,3 +17,9 @@ public enum GraphicsQuality
 	High,
 	Ultra
 }
+
+public enum WindowMode
+{
+	Fullscreen,
+	Windowed
+}

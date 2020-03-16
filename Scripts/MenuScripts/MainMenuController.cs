@@ -14,6 +14,8 @@ public class MainMenuController : MonoBehaviour {
 	[SerializeField]
 	private GraphicsResolution graphicsResolution;
 	[SerializeField]
+	private WindowMode windowMode;
+	[SerializeField]
 	private bool shadows = true;
 
 	private MainMenuCamera mainMenuCamera;
@@ -39,6 +41,14 @@ public class MainMenuController : MonoBehaviour {
 		get
 		{
 			return graphicsQuality;
+		}
+	}
+
+	public WindowMode WindowMode
+	{
+		get
+		{
+			return windowMode;
 		}
 	}
 
@@ -130,6 +140,12 @@ public class MainMenuController : MonoBehaviour {
 		SetResolution();
 	}
 
+	public void SetWindowMode(bool _mode)
+	{
+		windowMode = _mode ? WindowMode.Windowed : WindowMode.Fullscreen;
+		SetWindowMode();
+	}
+
 	public void SetShadows(bool _shadows)
 	{
 		shadows = _shadows;
@@ -177,8 +193,6 @@ public class MainMenuController : MonoBehaviour {
 
 	private void ChangeResolution()
 	{
-		//string index = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name;
-
 		switch (graphicsResolution)
 		{
 			case GraphicsResolution._1152x648:
@@ -199,10 +213,24 @@ public class MainMenuController : MonoBehaviour {
 		}
 	}
 
+	private void SetWindowMode()
+	{
+		switch(windowMode)
+		{
+			case WindowMode.Fullscreen:
+				Screen.fullScreen = true;
+				break;
+			case WindowMode.Windowed:
+				Screen.fullScreen = false;
+				break;
+		}
+	}
+
 	public void SetGraphicsSettingsFromSaveFile(PlayerData saveFile)
 	{
 		SetChangeGraphicsQuality(saveFile.SaveSettingsPlayer.graphicsQuality);
 		SetGraphicsResolution(saveFile.SaveSettingsPlayer.graphicsResolution);
+		SetWindowMode(saveFile.SaveSettingsPlayer.windowMode == WindowMode.Fullscreen ? false : true);
 		SetShadows(saveFile.SaveSettingsPlayer.isShadowsEnabled);
 	}
 
@@ -217,6 +245,14 @@ public class MainMenuController : MonoBehaviour {
 			instance = this;
 			DontDestroyOnLoad(gameObject);
 		}
+	}
+
+	private void OnEnable()
+	{
+		if(Screen.fullScreen)
+			windowMode = WindowMode.Fullscreen;
+		else
+			windowMode = WindowMode.Windowed;
 	}
 
 } // class
